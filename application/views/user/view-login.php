@@ -14,7 +14,7 @@
 							<div class="col-lg">
 								<div class="p-5">
 									<div class="text-center">
-										<img src="<?= base_url('assets/icon/logo-admin-1.png') ?>" alt="inbako-logo" width="50%">
+										<img src="<?= base_url('assets/icon/logo-1.png') ?>" alt="inbako-logo" width="50%">
 									</div>
 
 									<br>
@@ -39,6 +39,11 @@
 
 										</center>
 									</form>
+
+
+									<div class="text-center mt-2">
+										Belum Memiliki Akun ? <a style="color:#FE804D" href="<?= base_url('auth/registration') ?>">Buat Akun</a>
+									</div>
 								</div>
 							</div>
 						</div>
