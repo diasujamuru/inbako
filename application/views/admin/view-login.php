@@ -1,11 +1,11 @@
 <body style="background-color: #FE804D;">
 
-	<div class="container">
+	<div class="container mt-5">
 
 		<!-- Outer Row -->
-		<div class="row justify-content-center">
+		<div class="row justify-content-center mt-lg-5">
 
-			<div class="col-lg-6">
+			<div class="col-lg-6 mt-5">
 
 				<div class="card o-hidden border-0 shadow-lg my-5 mb-5">
 					<div class="card-body p-0">
@@ -22,7 +22,7 @@
 									<?= $this->session->flashdata('message'); ?>
 
 									<form action="<?= base_url('auth/admin') ?>" method="POST" class="user">
-										<div class="form-group">
+										<div class="form-group mt-2">
 											<div class="form-label ml-2" style="color: #FE804D">Username</div>
 											<input type="text" class="form-control form-control-user" id="username" name="username">
 											<?= form_error('username', '<small class="text-danger pl-3">', '</small> '); ?>
@@ -32,12 +32,12 @@
 											<input type="password" class="form-control form-control-user" id="password" name="password">
 											<?= form_error('password', '<small class="text-danger pl-3">', '</small> '); ?>
 										</div>
-										<center>
-											<button type="submit" style="background-color: #FE804D" class="btn btn-user btn-block col-4">
+										<div class="row justify-content-center mt-2">
+											<button type="submit" style="background-color: #FE804D" class="btn btn-user btn-block col-4 ">
 												<div class="text-white">Login</div>
 											</button>
 
-										</center>
+										</div>
 									</form>
 								</div>
 							</div>
