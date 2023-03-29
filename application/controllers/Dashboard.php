@@ -7,9 +7,9 @@ class Dashboard extends CI_Controller
 	{
 		parent::__construct();
 
-		if (empty($this->session->userdata('username'))) {
-			redirect('auth/admin');
-		}
+		// if (empty($this->session->userdata('username'))) {
+		// 	redirect('auth/admin');
+		// }
 	}
 
 	public function dashboardPetugas()
@@ -21,7 +21,8 @@ class Dashboard extends CI_Controller
 		$title['title'] = "InBako Profile";
 
 		$this->load->view('templates/header', $title);
-		$this->load->view('admin/view-dashboard-petugas.php', $data);
+		$this->load->view('templates/navbar-user-petugas.php');
+		$this->load->view('user/petugas/view-dashboard-petugas.php');
 		$this->load->view('templates/footer');
 	}
 
@@ -34,7 +35,8 @@ class Dashboard extends CI_Controller
 		$title['title'] = "InBako Profile";
 
 		$this->load->view('templates/header', $title);
-		$this->load->view('admin/view-dashboard-penerima.php', $data);
+		$this->load->view('templates/navbar-user-penerima.php');
+		$this->load->view('user/penerima/view-dashboard-penerima.php');
 		$this->load->view('templates/footer');
 	}
 
