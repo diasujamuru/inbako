@@ -21,7 +21,8 @@ class Dashboard extends CI_Controller
 		$title['title'] = "InBako Profile";
 
 		$this->load->view('templates/header', $title);
-		$this->load->view('admin/view-dashboard-petugas.php', $data);
+		$this->load->view('templates/sidebar', $title);
+		$this->load->view('admin/view-dashboard.php', $data);
 		$this->load->view('templates/footer');
 	}
 
