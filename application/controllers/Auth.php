@@ -9,6 +9,23 @@ class Auth extends CI_Controller
 		$this->load->library('form_validation');
 	}
 
+	public function index()
+	{
+		if ($this->session->userdata('username')) {
+			redirect('dashboard');
+		}
+		$this->form_validation->set_rules('username', 'Username', 'trim|required');
+		$this->form_validation->set_rules('password', 'Password', 'trim|required');
+		if ($this->form_validation->run() == false) {
+			$data['title'] = "Inbako Login";
+			$this->load->view('templates/header', $data);
+			$this->load->view('user/view-login.php');
+			$this->load->view('templates/footer');
+		} else {
+			$this->adminLogin();
+		}
+	}
+
 	public function admin()
 	{
 		if ($this->session->userdata('username')) {
