@@ -26,6 +26,32 @@ class Auth extends CI_Controller
 		}
 	}
 
+	public function userLogin()
+	{
+		$nik = $this->input->post('nik');
+		$password = $this->input->post('password');
+
+		$warga = $this->db->get_where('warga', ['nik' => $nik])->row_array();
+
+		if ($warga) {
+			if (password_verify($password, $warga['password'])) {
+				$data = [
+					'nik' => $warga['nik'],
+				];
+				$this->session->set_userdata($data);
+				if ($nik['role_id'] == 1) {
+					redirect('dashboard');
+				}
+			} else {
+				$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Wrong Password!</div>');
+				redirect('auth/admin');
+			}
+		} else {
+			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Wrong Username!</div>');
+			redirect('auth/admin');
+		}
+	}
+
 	public function admin()
 	{
 		if ($this->session->userdata('username')) {

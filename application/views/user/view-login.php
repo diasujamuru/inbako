@@ -23,9 +23,9 @@
 
 									<form action="<?= base_url('auth/admin') ?>" method="POST" class="user">
 										<div class="form-group">
-											<div class="form-label ml-2" style="color: #FE804D">Username</div>
-											<input type="text" class="form-control form-control-user" id="username" name="username">
-											<?= form_error('username', '<small class="text-danger pl-3">', '</small> '); ?>
+											<div class="form-label ml-2" style="color: #FE804D">NIK</div>
+											<input type="text" class="form-control form-control-user" id="nik" name="nik">
+											<?= form_error('nik', '<small class="text-danger pl-3">', '</small> '); ?>
 										</div>
 										<div class="form-group">
 											<div class="form-label ml-2" style="color: #FE804D">Password</div>

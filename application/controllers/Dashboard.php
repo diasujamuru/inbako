@@ -12,13 +12,22 @@ class Dashboard extends CI_Controller
 		// }
 	}
 
+	public function index()
+	{
+		$title['title'] = "InBako";
+
+		$this->load->view('templates/header', $title);
+		$this->load->view('user/view-dashboard-user.php');
+		$this->load->view('templates/footer');
+	}
+
 	public function dashboardPetugas()
 	{
 		if ($this->session->userdata('username')) {
 
 			$data['admin'] = $this->db->get_where('admin', ['username' => $this->session->userdata('username')])->row_array();
 		}
-		$title['title'] = "InBako Profile";
+		$title['title'] = "Dashboard Petugas";
 
 		$this->load->view('templates/header', $title);
 		$this->load->view('templates/navbar-user-petugas.php');
@@ -32,7 +41,7 @@ class Dashboard extends CI_Controller
 
 			$data['admin'] = $this->db->get_where('admin', ['username' => $this->session->userdata('username')])->row_array();
 		}
-		$title['title'] = "InBako Profile";
+		$title['title'] = "Dashboard Penerima";
 
 		$this->load->view('templates/header', $title);
 		$this->load->view('templates/navbar-user-penerima.php');
@@ -46,7 +55,7 @@ class Dashboard extends CI_Controller
 
 			$data['admin'] = $this->db->get_where('admin', ['username' => $this->session->userdata('username')])->row_array();
 		}
-		$title['title'] = "InBako Profile";
+		$title['title'] = "Dashboard Admin";
 
 		$this->load->view('templates/header', $title);
 		$this->load->view('templates/sidebar');
@@ -57,7 +66,7 @@ class Dashboard extends CI_Controller
 	public function viewProfile()
 	{
 
-		$title['title'] = "KampusKita Profile";
+		$title['title'] = "Inbako Profile";
 		$this->load->view('templates/header', $title);
 		$this->load->view('templates/sidebar');
 		$this->load->view('admin/view-dashboard-profile.php');
