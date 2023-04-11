@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary navbar-dark" style="background-color: #FE804D;">
 	<div class="container-fluid">
-		<a class="navbar-brand" href="#">
+		<a class="navbar-brand" href="<?= base_url('petugas')?>">
 			<img src="<?= base_url('assets/icon/logo-2.png') ?>" alt="logo-2" width="100px">
 		</a>
 
@@ -16,10 +16,6 @@
 
 				<li class="nav-item">
 					<a class="nav-link text-white" aria-current="page" href="#">Data Penduduk</a>
-				</li>
-
-				<li class="nav-item">
-					<span class="nav-link text-white" aria-current="page" href="#">|</span>
 				</li>
 
 				<li class="nav-item dropdown no-arrow">

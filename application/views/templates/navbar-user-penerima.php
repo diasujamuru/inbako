@@ -14,9 +14,6 @@
 					<a class="nav-link text-white" aria-current="page" href="#">Jadwal Pengambilan</a>
 				</li>
 
-				<li class="nav-item">
-					<span class="nav-link text-white" aria-current="page" href="#">|</span>
-				</li>
 
 				<li class="nav-item dropdown no-arrow">
 					<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

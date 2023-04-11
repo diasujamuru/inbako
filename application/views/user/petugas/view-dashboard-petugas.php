@@ -37,7 +37,7 @@
 					<div class="card-body">
 						<h5 class="card-title text-white">Data Penduduk</h5>
 						<div class="text-center">
-							<a href="#" class="btn btn-primary" style="background-color: white; color:#FE804D;">Lihat Data</a>
+							<a href="<?= base_url('petugas/lihatDataPenduduk') ?>" class="btn btn-primary" style="background-color: white; color:#FE804D;">Lihat Data</a>
 						</div>
 					</div>
 				</div>
