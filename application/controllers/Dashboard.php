@@ -3,36 +3,73 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Dashboard extends CI_Controller
 {
-    public function __construct()
-    {
-        parent::__construct();
+	public function __construct()
+	{
+		parent::__construct();
 
-        if (empty($this->session->userdata('username'))) {
-            redirect('auth/admin');
-        }
-    }
+		// if (empty($this->session->userdata('username'))) {
+		// 	redirect('auth/admin');
+		// }
+	}
 
-    public function index()
-    {
-        if ($this->session->userdata('username')) {
+	public function index()
+	{
+		$title['title'] = "InBako";
 
-            $data['admin'] = $this->db->get_where('admin', ['username' => $this->session->userdata('username')])->row_array();
-        }
-        $title['title'] = "InBako Profile";
+		$this->load->view('templates/header', $title);
+		$this->load->view('user/view-dashboard-user.php');
+		$this->load->view('templates/footer');
+	}
 
-        $this->load->view('templates/header', $title);
-        $this->load->view('templates/sidebar');
-        $this->load->view('admin/view-dashboard.php', $data);
-        $this->load->view('templates/footer');
-    }
+	public function dashboardPetugas()
+	{
+		if ($this->session->userdata('username')) {
 
-    public function viewProfile()
-    {
+			$data['admin'] = $this->db->get_where('admin', ['username' => $this->session->userdata('username')])->row_array();
+		}
+		$title['title'] = "Dashboard Petugas";
 
-        $title['title'] = "KampusKita Profile";
-        $this->load->view('templates/header', $title);
-        $this->load->view('templates/sidebar');
-        $this->load->view('admin/view-dashboard-profile.php');
-        $this->load->view('templates/footer');
-    }
+		$this->load->view('templates/header', $title);
+		$this->load->view('templates/navbar-user-petugas.php');
+		$this->load->view('user/petugas/view-dashboard-petugas.php');
+		$this->load->view('templates/footer');
+	}
+
+	public function dashboardPenerima()
+	{
+		if ($this->session->userdata('username')) {
+
+			$data['admin'] = $this->db->get_where('admin', ['username' => $this->session->userdata('username')])->row_array();
+		}
+		$title['title'] = "Dashboard Penerima";
+
+		$this->load->view('templates/header', $title);
+		$this->load->view('templates/navbar-user-penerima.php');
+		$this->load->view('user/penerima/view-dashboard-penerima.php');
+		$this->load->view('templates/footer');
+	}
+
+	public function dashboardAdmin()
+	{
+		if ($this->session->userdata('username')) {
+
+			$data['admin'] = $this->db->get_where('admin', ['username' => $this->session->userdata('username')])->row_array();
+		}
+		$title['title'] = "Dashboard Admin";
+
+		$this->load->view('templates/header', $title);
+		$this->load->view('templates/sidebar');
+		$this->load->view('admin/view-dashboard.php', $data);
+		$this->load->view('templates/footer');
+	}
+
+	public function viewProfile()
+	{
+
+		$title['title'] = "Inbako Profile";
+		$this->load->view('templates/header', $title);
+		$this->load->view('templates/sidebar');
+		$this->load->view('admin/view-dashboard-profile.php');
+		$this->load->view('templates/footer');
+	}
 }
