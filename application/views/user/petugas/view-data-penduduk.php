@@ -9,7 +9,7 @@
 
 	<br>
 
-	<table class="table table-hover text-dark">
+	<table class="table table-hover text-dark table-responsive">
 		<thead class="table-secondary">
 			<tr>
 				<th scope="col">NIK</th>

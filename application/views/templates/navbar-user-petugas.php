@@ -11,23 +11,20 @@
 		<div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item">
-					<a class="nav-link text-white" aria-current="page" href="#">Jadwal Pengambilan</a>
+					<a class="nav-link text-white fw-bolder" aria-current="page" href="<?= base_url('petugas/jadwal')?>">Jadwal Pengambilan</a>
 				</li>
 
 				<li class="nav-item">
-					<a class="nav-link text-white" aria-current="page" href="#">Data Penduduk</a>
+					<a class="nav-link text-white mr-4 fw-bolder" aria-current="page" href="<?= base_url('petugas/lihatDataPenduduk')?>">Data Penduduk</a>
 				</li>
 
 				<li class="nav-item dropdown no-arrow">
-					<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						<span class="mr-2 d-none d-lg-inline text-white">Petugas</span>
-						<img class="img-profile rounded-circle" src="<?= base_url('assets/img/undraw_profile.svg') ?>">
-					</a>
+					<a class="nav-link dropdown-toggle text-white" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Petugas</a>
 					<!-- Dropdown - User Information -->
 					<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
 						<a class="dropdown-item" href="#">
 							<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-							Profile
+							My Profile
 						</a>
 
 						<div class="dropdown-divider"></div>
