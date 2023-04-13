@@ -116,4 +116,44 @@ class Petugas extends CI_Controller
 		$this->load->view('user/petugas/view-data-penduduk.php', $data);
 		$this->load->view('templates/footer');
 	}
+
+	public function lihatDaftarPengambilan()
+	{
+		$queryAllWarga = $this->ModelPetugas->getDataPenduduk();
+		$data = array('warga' => $queryAllWarga);
+		$title['title'] = "Daftar Pengambilan";
+
+		// $config['base_url'] = 'http://localhost/kampuskita/mahasiswa/index';
+
+		// //ambil data keyword
+		// if ($this->input->post('submit')) {
+		// 	$data['keyword'] = $this->input->post('keyword');
+		// 	$this->session->set_userdata('keyword', $data['keyword']);
+		// } else {
+		// 	$data['keyword'] = $this->session->userdata('keyword', $data);
+		// }
+
+		// //pagination
+		// //config
+		// $this->db->like('nama', $data['keyword']);
+		// $this->db->or_like('email', $data['keyword']);
+		// $this->db->or_like('jurusan', $data['keyword']);
+		// $this->db->or_like('nim', $data['keyword']);
+		// $this->db->from('mahasiswa');
+		// $config['total_rows'] = $this->db->count_all_results();
+		// $data['total_rows'] = $config['total_rows'];
+		// $config['per_page'] = 7;
+
+		// //initialize
+		// $this->pagination->initialize($config);
+
+		// $data['start'] = $this->uri->segment(3);
+		// $data['warga'] = $this->ModelPetugas->getMahasiswa($config['per_page'], $data['start'], $data['keyword']);
+
+		$this->load->view('templates/header', $title);
+		$this->load->view('templates/navbar-user-petugas');
+		$this->load->view('user/petugas/view-daftar-pengambilan.php', $data);
+		$this->load->view('templates/footer');
+	}
+
 }
