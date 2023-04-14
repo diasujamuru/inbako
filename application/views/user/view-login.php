@@ -21,23 +21,25 @@
 
 									<?= $this->session->flashdata('message'); ?>
 
-									<form action="<?= base_url('auth/admin') ?>" method="POST" class="user">
+									<form action="<?= base_url('auth') ?>" method="POST" class="user">
 										<div class="form-group">
-											<div class="form-label ml-2" style="color: #FE804D">NIK</div>
-											<input type="text" class="form-control form-control-user" id="nik" name="nik">
-											<?= form_error('nik', '<small class="text-danger pl-3">', '</small> '); ?>
+											<div class="form-label ml-2" style="color: #FE804D">Email</div>
+											<input type="text" class="form-control form-control-user" id="email" name="email">
+											<?= form_error('email', '<small class="text-danger pl-3">', '</small> '); ?>
 										</div>
 										<div class="form-group">
 											<div class="form-label ml-2" style="color: #FE804D">Password</div>
 											<input type="password" class="form-control form-control-user" id="password" name="password">
 											<?= form_error('password', '<small class="text-danger pl-3">', '</small> '); ?>
 										</div>
-										<center>
+										<div class="row justify-content-center">
+
 											<button type="submit" style="background-color: #FE804D" class="btn btn-user btn-block col-4">
 												<div class="text-white">Login</div>
 											</button>
+										</div>
 
-										</center>
+
 									</form>
 
 

@@ -4,7 +4,7 @@
 
 	<div class="text-center">
 		<br>
-		<h1 class="fw-bolder">Jadwal Pengambilan</h1>
+		<h1 class="fw-bolder"><?= $title; ?></h1>
 	</div>
 
 	<div class="text-center">
@@ -15,19 +15,24 @@
 	<br>
 	<div class="row row-cols-1 row-cols-md-3 g-4">
 		<?php foreach ($jadwal as $jdl) : ?>
-		<div class="col">
-			<div class="card text-center" style="background-color: #FE804D;">
-				<img src="https://images.unsplash.com/photo-1679678691001-529c36fdfee5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80" class="card-img-top" alt="...">
-				<div class="card-body">
-					<h5 class="card-title text-white"><?php echo $jdl->tanggal; ?> - <?= "Mulai: ",$jdl->mulai?></h5>
-					<div class="text-center">
-						<a href="<?= base_url('petugas/lihatDaftarPengambilan') ?>" class="btn " style="background-color: white; color:#FE804D;">Lihat Pengambilan</a>
+			<div class="col">
+				<div class="card text-center" style="background-color: #FE804D;">
+					<img src="https://images.unsplash.com/photo-1679678691001-529c36fdfee5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title text-white"><?php echo $jdl->tanggal; ?></h5>
+						<h5 class="card-title text-white"><?= $jdl->mulai ?> - <?=  $jdl->selesai?></h5>
+						<h5 class="card-title text-white"><?= $jdl->kode_perwilayah ?></h5>
+						<div class="text-center">
+							<a href="<?= base_url('petugas/lihatDaftarPengambilan') ?>" class="btn " style="background-color: white; color:#FE804D;">Lihat Pengambilan</a>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 		<?php endforeach ?>
 	</div>
+
+	<br>
+	<br>
 	<div class="modal fade" id="newJadwal" tabindex="-1" aria-labelledby="newMenuModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -43,12 +48,12 @@
 						<div class="form-group">
 							<div class="row">
 								<div class="col">
-								<label class="form-label">Kode Wilayah : </label>
-								<input type="number" class="form-control mb-2" id="kode_wilayah" value="<?= $users['kode_wilayah_petugas']?>" name="kode_wilayah" readonly>
+									<label class="form-label">Kode Wilayah : </label>
+									<input type="number" class="form-control mb-2" id="kode_wilayah" value="<?= $users['kode_wilayah'] ?>" name="kode_wilayah" readonly>
 								</div>
 								<div class="col">
-								<label class="form-label">Kode Per Wilayah : </label>
-								<input type="number" class="form-control mb-2" id="kode_per_wilayah" name="kode_per_wilayah" required>
+									<label class="form-label">Kode Per Wilayah : </label>
+									<input type="number" class="form-control mb-2" id="kode_perwilayah" name="kode_perwilayah" required>
 								</div>
 							</div>
 							<label class="form-label">Tanggal : </label>
