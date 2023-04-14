@@ -133,7 +133,7 @@ class Petugas extends CI_Controller
 
 		$this->load->model('ModelWarga');
 		$data['warga'] = $this->ModelWarga->get_warga_by_kode_wilayah_petugas_login($kode_wilayah_petugas);
-		$title['title'] = "Daftar Pengambilan";
+		$title['title'] = "Daftar Pengambilan	";
 
 
 		$this->load->view('templates/header', $title);

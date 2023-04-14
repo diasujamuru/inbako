@@ -39,6 +39,10 @@
 
 										</div>
 									</form>
+
+									<div class="text-center mt-2">
+										Belum Memiliki Akun ? <a style="color:#FE804D" href="<?= base_url('auth/registration') ?>">Buat Akun</a>
+									</div>
 								</div>
 							</div>
 						</div>

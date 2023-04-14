@@ -1,7 +1,7 @@
 <body>
 	<div id="wrapper">
 		<!-- Sidebar -->
-		<ul class="navbar-nav sidebar sidebar-dark accordion" style="background-color: #395144;" id="accordionSidebar">
+		<ul class="navbar-nav sidebar sidebar-dark accordion"  style="background-color: #FE804D;" id="accordionSidebar">
 
 			<!-- Sidebar - Brand -->
 			<a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url('dashboard'); ?>">
@@ -29,8 +29,9 @@
 				</a>
 				<div id="collapseTwo" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
 					<div class="table-secondary py-2 collapse-inner rounded">
-						<a class="collapse-item" href="<?= base_url('mahasiswa') ?>">Mahasiswa</a>
-						<a class="collapse-item" href="<?= base_url('dosen') ?>">Dosen</a>
+						<a class="collapse-item" href="<?= base_url('mahasiswa') ?>">Warga</a>
+						<a class="collapse-item" href="<?= base_url('mahasiswa') ?>">Petugas</a>
+						<a class="collapse-item" href="<?= base_url('mahasiswa') ?>">Jadwal</a>
 					</div>
 				</div>
 			</li>
