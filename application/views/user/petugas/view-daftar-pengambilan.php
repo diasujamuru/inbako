@@ -23,6 +23,7 @@
 				<th scope="col">No. Telepon</th>
 				<th scope="col">Kode Wilayah</th>
 				<th scope="col">Status Pengambilan</th>
+				<th scope="col">Status Pengambilan</th>
 			</tr>
 		</thead>
 		<tbody>

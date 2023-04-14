@@ -51,56 +51,40 @@ class Petugas extends CI_Controller
 
 		$kode_wilayah_petugas = $this->session->userdata('kode_wilayah_petugas');
 
+
 		$this->load->model('ModelWarga');
-		$data['warga'] = $this->ModelWarga->get_warga_by_kode_wilayah_petugas_login($kode_wilayah_petugas);
+		$this->load->model('ModelJadwal');
+		$jadwal['warga'] = $this->ModelWarga->get_warga_by_kode_wilayah_petugas_login($kode_wilayah_petugas);
+		$data['jadwal'] = $this->ModelJadwal->getJadwal($kode_wilayah_petugas);
 		$title['title'] = "Jadwal Pengambilan";
 
 
 		$this->load->view('templates/header', $title);
 		$this->load->view('templates/navbar-user-petugas', $desc);
-		$this->load->view('user/petugas/view-jadwal-petugas.php', $data);
+		$this->load->view('user/petugas/view-jadwal-petugas.php',$data);
 		$this->load->view('templates/footer');
 	}
 
 	public function buatJadwal()
 	{
-		$queryAllJadwal = $this->ModelPetugas->getDataJadwal();
-		$data = array('jadwal' => $queryAllJadwal);
-		$title['title'] = 'Daftar Jadwal Pengambilan';
 
-		// $this->form_validation->set_rules('nim', 'NIM', 'required|trim|is_unique[mahasiswa.nim]', [
-		// 	'is_unique' => 'NIM Sudah Terdaftar!'
-		// ]);
-		// $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[mahasiswa.email]', [
-		// 	'is_unique' => 'Email Sudah Terdaftar!'
-		// ]);
-
-		if ($this->form_validation->run() == false) {
-			$this->load->view('templates/header', $title);
-			$this->load->view('templates/navbar-user-petugas');
-			$this->load->view('user/petugas/view-jadwal-petugas', $data);
-			$this->load->view('templates/footer');
-		} else {
-			$kode_wilayah = $this->input->post('kode_wilayah');
+			$kode = $this->input->post('kode_wilayah');
 			$tgl = $this->input->post('tgl');
-			$jamAwal = $this->input->post('jam_awal');
-			$jamTenggat = $this->input->post('jam_tenggat');
+			$mulai = $this->input->post('mulai');
+			$selesai = $this->input->post('selesai');
 
-			$data = array(
-				'kode_wilayah' => $kode_wilayah,
-				'tanggal' => $tgl,
-				'jam_awal' => $jamAwal,
-				'jam_tenggat' => $jamTenggat,
-
-			);
+			$data =[
+				'kode_wilayah_petugas' => $kode,
+            	'tanggal' => $tgl,
+            	'mulai' => $mulai,
+            	'selesai' => $selesai,
+			];
 
 			$this->ModelPetugas->insertDataJadwal($data);
 
-			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Post Jadwal telah berhasil dibuat!</div>');
-
 			redirect('petugas/jadwal');
-		}
 	}
+
 
 	public function lihatDataPenduduk()
 	{
