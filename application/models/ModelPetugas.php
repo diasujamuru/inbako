@@ -23,13 +23,14 @@ class ModelPetugas extends CI_Model
 		return $query->result();
 	}
 
-	public function getDataJadwal()
+	public function getDataJadwal($kode_wilayah_petugas)
 	{
+		$this->db->where('kode_wilayah_petugas', $kode_wilayah_petugas);
 		$query = $this->db->get('jadwal');
 		return $query->result();
 	}
 
-	public function insertDataMahasiswa($data)
+	public function insertDataJadwal($data)
 	{
 		$this->db->insert('jadwal', $data);
 	}
