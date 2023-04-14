@@ -9,9 +9,10 @@
 
 	<br>
 
-	<table class="table table-hover text-dark">
+	<table class="table table-hover text-dark table-responsive">
 		<thead class="table-secondary">
 			<tr>
+				<th scope="col">No</th>
 				<th scope="col">NIK</th>
 				<th scope="col">Nama</th>
 				<th scope="col">Kelurahan</th>
@@ -25,11 +26,13 @@
 			</tr>
 		</thead>
 		<tbody>
+			<?php $i = 1; ?>
 			<?php
 			foreach ($warga as $row) :
 			?>
 
 				<tr>
+					<td><?= $i++ ?></td>
 					<td><?= $row->nik; ?></td>
 					<td><?= $row->nama; ?></td>
 					<td><?= $row->kelurahan; ?></td>
@@ -39,7 +42,7 @@
 					<td><?= $row->rw; ?></td>
 					<td><?= $row->ttl; ?></td>
 					<td><?= $row->no_telpon; ?></td>
-					<td><?= $row->no_wilayah; ?></td>
+					<td><?= $row->kode_wilayah_warga; ?></td>
 
 				</tr>
 			<?php endforeach; ?>
