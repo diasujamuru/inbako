@@ -69,12 +69,14 @@ class Petugas extends CI_Controller
 	{
 
 			$kode = $this->input->post('kode_wilayah');
+			$kode_perwilayah = $this->input->post('kode_perwilayah');
 			$tgl = $this->input->post('tgl');
 			$mulai = $this->input->post('mulai');
 			$selesai = $this->input->post('selesai');
 
 			$data =[
-				'kode_wilayah_petugas' => $kode,
+				'kode_wilayah' => $kode,
+				'kode_perwilayah' => $kode_perwilayah,
             	'tanggal' => $tgl,
             	'mulai' => $mulai,
             	'selesai' => $selesai,
@@ -93,7 +95,7 @@ class Petugas extends CI_Controller
 			$desc['users'] = $this->db->get_where('users', ['email' => $this->session->userdata('email')])->row_array();
 		}
 
-		$kode_wilayah_petugas = $this->session->userdata('kode_wilayah_petugas');
+		$kode_wilayah_petugas = $this->session->userdata('kode_wilayah');
 
 		$this->load->model('ModelWarga');
 		$data['warga'] = $this->ModelWarga->get_warga_by_kode_wilayah_petugas_login($kode_wilayah_petugas);
@@ -113,11 +115,11 @@ class Petugas extends CI_Controller
 			$desc['users'] = $this->db->get_where('users', ['email' => $this->session->userdata('email')])->row_array();
 		}
 
-		$kode_wilayah_petugas = $this->session->userdata('kode_wilayah_petugas');
+		$kode_wilayah_petugas = $this->session->userdata('kode_wilayah');
 
 		$this->load->model('ModelWarga');
 		$data['warga'] = $this->ModelWarga->get_warga_by_kode_wilayah_petugas_login($kode_wilayah_petugas);
-		$title['title'] = "Daftar Pengambilan	";
+		$title['title'] = "Daftar Pengambilan";
 
 
 		$this->load->view('templates/header', $title);

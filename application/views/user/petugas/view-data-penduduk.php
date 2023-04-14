@@ -4,7 +4,7 @@
 
 	<div class="text-center">
 		<br>
-		<h1 class="fw-bolder">Data Penduduk</h1>
+		<h1 class="fw-bolder"><?= $title;?></h1>
 	</div>
 
 	<br>
@@ -39,7 +39,7 @@
 					<td><?= $row->rw; ?></td>
 					<td><?= $row->ttl; ?></td>
 					<td><?= $row->no_telpon; ?></td>
-					<td><?= $row->kode_wilayah_warga; ?></td>
+					<td><?= $row->kode_wilayah; ?></td>
 
 				</tr>
 			<?php endforeach; ?>

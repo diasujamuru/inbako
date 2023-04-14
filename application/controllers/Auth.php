@@ -35,11 +35,11 @@ class Auth extends CI_Controller
 			if (password_verify($password, $users['password'])) {
 				$data = [
 					'email' => $users['email'],
-					'kode_wilayah_petugas' => $users['kode_wilayah_petugas'],
+					'kode_wilayah' => $users['kode_wilayah'],
 				];
 
 				$this->session->set_userdata($data);
-				
+
 				if ($users['role_id'] == 2) {
 					redirect('petugas');
 				} else if ($users['role_id'] == 3) {

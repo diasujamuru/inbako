@@ -25,7 +25,7 @@ class ModelPetugas extends CI_Model
 
 	public function getDataJadwal($kode_wilayah_petugas)
 	{
-		$this->db->where('kode_wilayah_petugas', $kode_wilayah_petugas);
+		$this->db->where('kode_wilayah', $kode_wilayah_petugas);
 		$query = $this->db->get('jadwal');
 		return $query->result();
 	}

@@ -4,10 +4,12 @@
 
 	<div class="text-center">
 		<br>
-		<h1 class="fw-bolder">Data Penduduk</h1>
+		<h1 class="fw-bolder"><?= $title;?></h1>
 	</div>
 
 	<br>
+
+	<h4 class="fw-bold" style="align-items: right;"><?= $warga['kode_perwilayah'];?></h4>
 
 	<table class="table table-hover text-dark table-responsive text-center">
 		<thead class="table-secondary">
@@ -22,7 +24,7 @@
 				<th scope="col">TTL</th>
 				<th scope="col">No. Telepon</th>
 				<th scope="col">Kode Wilayah</th>
-				<th scope="col">Status Pengambilan</th>
+				<th scope="col">Kode Perwilayah</th>
 				<th scope="col">Status Pengambilan</th>
 			</tr>
 		</thead>
@@ -41,7 +43,8 @@
 					<td><?= $row->rw; ?></td>
 					<td><?= $row->ttl; ?></td>
 					<td><?= $row->no_telpon; ?></td>
-					<td><?= $row->kode_wilayah_warga?></td>
+					<td><?= $row->kode_wilayah?></td>
+					<td><?= $row->kode_perwilayah?></td>
 					<td>
 						<input class="form-check-input" type="checkbox" name="status_ambil" <?php if ($row->status_ambil == 1) echo "checked";?> disabled>
 					</td>
