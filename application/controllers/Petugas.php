@@ -44,11 +44,21 @@ class Petugas extends CI_Controller
 
 	public function jadwal()
 	{
-		$title['title'] = "Daftar Jadwal Pengambilan";
+		if ($this->session->userdata('email')) {
+
+			$desc['users'] = $this->db->get_where('users', ['email' => $this->session->userdata('email')])->row_array();
+		}
+
+		$kode_wilayah_petugas = $this->session->userdata('kode_wilayah_petugas');
+
+		$this->load->model('ModelWarga');
+		$data['warga'] = $this->ModelWarga->get_warga_by_kode_wilayah_petugas_login($kode_wilayah_petugas);
+		$title['title'] = "Jadwal Pengambilan";
+
 
 		$this->load->view('templates/header', $title);
-		$this->load->view('templates/navbar-user-petugas.php');
-		$this->load->view('user/petugas/view-jadwal-petugas.php');
+		$this->load->view('templates/navbar-user-petugas', $desc);
+		$this->load->view('user/petugas/view-jadwal-petugas.php', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -111,4 +121,25 @@ class Petugas extends CI_Controller
 		$this->load->view('user/petugas/view-data-penduduk.php', $data);
 		$this->load->view('templates/footer');
 	}
+
+	public function lihatDaftarPengambilan()
+	{
+		if ($this->session->userdata('email')) {
+
+			$desc['users'] = $this->db->get_where('users', ['email' => $this->session->userdata('email')])->row_array();
+		}
+
+		$kode_wilayah_petugas = $this->session->userdata('kode_wilayah_petugas');
+
+		$this->load->model('ModelWarga');
+		$data['warga'] = $this->ModelWarga->get_warga_by_kode_wilayah_petugas_login($kode_wilayah_petugas);
+		$title['title'] = "Daftar Pengambilan";
+
+
+		$this->load->view('templates/header', $title);
+		$this->load->view('templates/navbar-user-petugas', $desc);
+		$this->load->view('user/petugas/view-daftar-pengambilan.php', $data);
+		$this->load->view('templates/footer');
+	}
+
 }
