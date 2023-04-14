@@ -21,38 +21,30 @@
 
 									<?= $this->session->flashdata('message'); ?>
 
-									<form action="<?= base_url('auth/registration') ?>" method="POST" class="user">
+									<form action="<?= base_url('auth/petugas') ?>" method="POST" class="user">
 										<div class="form-group">
-											<div class="form-label ml-2" style="color: #FE804D">Username</div>
-											<input type="text" class="form-control form-control-user" id="username" name="username">
-											<?= form_error('username', '<small class="text-danger pl-3">', '</small> '); ?>
-										</div>
-										<div class="form-group">
-											<div class="form-label ml-2" style="color: #FE804D">email</div>
+											<div class="form-label ml-2" style="color: #FE804D">Email</div>
 											<input type="text" class="form-control form-control-user" id="email" name="email">
 											<?= form_error('email', '<small class="text-danger pl-3">', '</small> '); ?>
 										</div>
 										<div class="form-group">
 											<div class="form-label ml-2" style="color: #FE804D">Password</div>
-											<input type="password" class="form-control form-control-user" id="password1" name="password1">
+											<input type="password" class="form-control form-control-user" id="password" name="password">
 											<?= form_error('password', '<small class="text-danger pl-3">', '</small> '); ?>
 										</div>
-										<div class="form-group">
-											<div class="form-label ml-2" style="color: #FE804D">Konfirmasi Password</div>
-											<input type="password" class="form-control form-control-user" id="password2" name="password2">
-											<?= form_error('password', '<small class="text-danger pl-3">', '</small> '); ?>
-										</div>
-										<center>
-											<button type="submit" style="background-color: #FE804D" class="btn btn-user btn-block col-4">
-												<div class="text-white">Daftar</div>
-											</button>
+										<div class="row justify-content-center">
 
-										</center>
+											<button type="submit" style="background-color: #FE804D" class="btn btn-user btn-block col-4">
+												<div class="text-white">Login</div>
+											</button>
+										</div>
+
+
 									</form>
 
 
 									<div class="text-center mt-2">
-										Sudah punya akun ? <a style="color:#FE804D" href="<?= base_url('auth') ?>">Login</a>
+										Belum Memiliki Akun ? <a style="color:#FE804D" href="<?= base_url('auth/registration') ?>">Buat Akun</a>
 									</div>
 								</div>
 							</div>

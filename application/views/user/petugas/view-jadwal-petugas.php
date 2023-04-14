@@ -21,7 +21,7 @@
 				<div class="card-body">
 					<h5 class="card-title text-white">XXXXX - DD/MM/YYYY</h5>
 					<div class="text-center">
-						<a href="<?= base_url('petugas/jadwal') ?>" class="btn " style="background-color: white; color:#FE804D;">Lihat Pengambilan</a>
+						<a href="<?= base_url('petugas/lihatDaftarPengambilan') ?>" class="btn " style="background-color: white; color:#FE804D;">Lihat Pengambilan</a>
 					</div>
 				</div>
 			</div>

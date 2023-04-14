@@ -40,7 +40,7 @@
 					<td><?= $row->rw; ?></td>
 					<td><?= $row->ttl; ?></td>
 					<td><?= $row->no_telpon; ?></td>
-					<td><?= $row->no_wilayah; ?></td>
+					<td><?= $row->kode_wilayah_warga?></td>
 					<td>
 						<input class="form-check-input" type="checkbox" name="status_ambil" <?php if ($row->status_ambil == 1) echo "checked";?> disabled>
 					</td>

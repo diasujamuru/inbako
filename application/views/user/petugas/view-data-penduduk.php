@@ -39,7 +39,7 @@
 					<td><?= $row->rw; ?></td>
 					<td><?= $row->ttl; ?></td>
 					<td><?= $row->no_telpon; ?></td>
-					<td><?= $row->no_wilayah; ?></td>
+					<td><?= $row->kode_wilayah_warga; ?></td>
 
 				</tr>
 			<?php endforeach; ?>
