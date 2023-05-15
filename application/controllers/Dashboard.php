@@ -49,20 +49,6 @@ class Dashboard extends CI_Controller
 		$this->load->view('templates/footer');
 	}
 
-	public function dashboardAdmin()
-	{
-		if ($this->session->userdata('username')) {
-
-			$data['admin'] = $this->db->get_where('admin', ['username' => $this->session->userdata('username')])->row_array();
-		}
-		$title['title'] = "Dashboard Admin";
-
-		$this->load->view('templates/header', $title);
-		$this->load->view('templates/sidebar');
-		$this->load->view('admin/view-dashboard.php', $data);
-		$this->load->view('templates/footer');
-	}
-
 	public function viewProfile()
 	{
 

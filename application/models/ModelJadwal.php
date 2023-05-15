@@ -9,4 +9,15 @@ class ModelJadwal extends CI_Model
 		$query = $this->db->get('jadwal');
 		return $query->result();
 	}
+
+	// public function getPerWilayah($kode_perwilayah)
+	// {
+	// 	$this->db->get('jadwal', ['kode_perwilayah' => $kode_perwilayah])->row_array();
+	// }
+	public function getPerWilayah($kode_perwilayah)
+	{
+		$this->db->where('kode_perwilayah', $kode_perwilayah);
+		$query = $this->db->get('jadwal');
+		return $query->result();
+	}
 }

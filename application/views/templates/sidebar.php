@@ -6,9 +6,9 @@
 			<!-- Sidebar - Brand -->
 			<a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url('dashboard'); ?>">
 				<div class="sidebar-brand-icon">
-					<i class="fas fa-fw fa-book"></i>
+					<i class="fas fa-store"></i>
 				</div>
-				<div class="sidebar-brand-text mx-3">KampusKita</div>
+				<div class="sidebar-brand-text mx-3">InBako</div>
 			</a>
 
 			<!-- Divider -->
@@ -29,9 +29,9 @@
 				</a>
 				<div id="collapseTwo" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
 					<div class="table-secondary py-2 collapse-inner rounded">
-						<a class="collapse-item" href="<?= base_url('mahasiswa') ?>">Warga</a>
-						<a class="collapse-item" href="<?= base_url('mahasiswa') ?>">Petugas</a>
-						<a class="collapse-item" href="<?= base_url('mahasiswa') ?>">Jadwal</a>
+						<a class="collapse-item" href="<?= base_url('admin/dataWarga') ?>">Warga</a>
+						<a class="collapse-item" href="<?= base_url('admin/dataPetugas') ?>">Petugas</a>
+						<a class="collapse-item" href="<?= base_url('admin/dataJadwal') ?>">Jadwal</a>
 					</div>
 				</div>
 			</li>

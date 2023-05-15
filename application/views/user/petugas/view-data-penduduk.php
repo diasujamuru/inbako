@@ -4,7 +4,7 @@
 
 	<div class="text-center">
 		<br>
-		<h1 class="fw-bolder"><?= $title;?></h1>
+		<h1 class="fw-bolder"><?= $title; ?></h1>
 	</div>
 
 	<br>

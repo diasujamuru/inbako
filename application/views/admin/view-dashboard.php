@@ -59,9 +59,53 @@
 		</nav>
 		<!-- End of Topbar -->
 
-		<h2>Selamat Datang Admin</h2>
+		<div class="text-center">
+			<h2>Selamat Datang Admin</h2>
+		</div>
 
+		<br>
 
+		<div class="row row-cols-1 row-cols-md-3 g-4">
+			<div class="col">
+				<div class="card" style="background-color: #FE804D;">
+					<img src="<?= base_url('assets/img/admin-card-1.jpg') ?>" class="card-img-top" alt="warga">
+					<div class="card-body">
+						<div class="text-center">
+							<h5 class="card-title text-white">Data Warga</h5>
+						</div>
+						<div class="text-center">
+							<a href="<?= base_url('admin/dataWarga') ?>" class="btn btn-primary" style="background-color: white; color:#FE804D;">Kelola Data Warga</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="card" style="background-color: #FE804D;">
+					<img src="<?= base_url('assets/img/admin-card-2.jpg') ?>" class="card-img-top" alt="petugas">
+					<div class="card-body">
+						<div class="text-center">
+							<h5 class="card-title text-white">Data Petugas</h5>
+						</div>
+						<div class="text-center">
+							<a href="<?= base_url('admin/dataPetugas') ?>" class="btn btn-primary" style="background-color: white; color:#FE804D;">Kelola Data Petugas</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="card" style="background-color: #FE804D;">
+					<img src="<?= base_url('assets/img/admin-card-3.jpg') ?>" class="card-img-top" alt="petugas">
+					<div class="card-body">
+						<div class="text-center">
+							<h5 class="card-title text-white">Data Jadwal</h5>
+						</div>
+						<div class="text-center">
+							<a href="<?= base_url('admin/dataJadwal') ?>" class="btn btn-primary" style="background-color: white; color:#FE804D;">Kelola Data Jadwal</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	</body>

@@ -66,7 +66,7 @@ class Auth extends CI_Controller
 	public function admin()
 	{
 		if ($this->session->userdata('username')) {
-			redirect('dashboard');
+			redirect('admin');
 		}
 		$this->form_validation->set_rules('username', 'Username', 'trim|required');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required');
@@ -95,7 +95,7 @@ class Auth extends CI_Controller
 				];
 				$this->session->set_userdata($data);
 				if ($admin['role_id'] == 1) {
-					redirect('dashboard/dashboardAdmin');
+					redirect('admin');
 				}
 			} else {
 				$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Wrong Password!</div>');
