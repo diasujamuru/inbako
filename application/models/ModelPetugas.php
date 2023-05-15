@@ -15,6 +15,11 @@ class ModelPetugas extends CI_Model
 		}
 	}
 
+	public function cekData($where = null)
+	{
+		return $this->db->get_where('users', $where);
+	}
+
 	// password_verify($password, $users['password'])
 
 	public function getDataPenduduk()
@@ -26,6 +31,13 @@ class ModelPetugas extends CI_Model
 	public function getDataJadwal($kode_wilayah_petugas)
 	{
 		$this->db->where('kode_wilayah', $kode_wilayah_petugas);
+		$query = $this->db->get('jadwal');
+		return $query->result();
+	}
+
+	public function getJadwalPerwilayah($kode_perwilayah_petugas)
+	{
+		$this->db->where('kode_wilayah', $kode_perwilayah_petugas);
 		$query = $this->db->get('jadwal');
 		return $query->result();
 	}

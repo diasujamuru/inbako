@@ -7,12 +7,13 @@ class Petugas extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->library('form_validation');
-
+		$this->load->model('ModelJadwal');
+		$this->load->model('ModelWarga');
 		$this->load->model('ModelPetugas');
 
-		// if (empty($this->session->userdata('username'))) {
-		// 	redirect('auth/admin');
-		// }
+		if (empty($this->session->userdata('email'))) {
+			redirect('auth');
+		}
 	}
 
 	public function index()
@@ -45,46 +46,42 @@ class Petugas extends CI_Controller
 	public function jadwal()
 	{
 		if ($this->session->userdata('email')) {
-
-			$desc['users'] = $this->db->get_where('users', ['email' => $this->session->userdata('email')])->row_array();
+			$desc['users'] = $this->ModelPetugas->cekData(['email' => $this->session->userdata('email')])->row_array();
 		}
 
-		$kode_wilayah_petugas = $this->session->userdata('kode_wilayah_petugas');
-
-
-		$this->load->model('ModelWarga');
+		$kode_wilayah_petugas = $this->session->userdata('kode_wilayah');
 		$this->load->model('ModelJadwal');
-		$jadwal['warga'] = $this->ModelWarga->get_warga_by_kode_wilayah_petugas_login($kode_wilayah_petugas);
 		$data['jadwal'] = $this->ModelJadwal->getJadwal($kode_wilayah_petugas);
-		$title['title'] = "Jadwal Pengambilan";
 
+
+		$title['title'] = "Jadwal Pengambilan";
 
 		$this->load->view('templates/header', $title);
 		$this->load->view('templates/navbar-user-petugas', $desc);
-		$this->load->view('user/petugas/view-jadwal-petugas.php',$data);
+		$this->load->view('user/petugas/view-jadwal-petugas.php', $data);
 		$this->load->view('templates/footer');
 	}
 
 	public function buatJadwal()
 	{
 
-			$kode = $this->input->post('kode_wilayah');
-			$kode_perwilayah = $this->input->post('kode_perwilayah');
-			$tgl = $this->input->post('tgl');
-			$mulai = $this->input->post('mulai');
-			$selesai = $this->input->post('selesai');
+		$kode = $this->input->post('kode_wilayah');
+		$kode_perwilayah = $this->input->post('kode_perwilayah');
+		$tgl = $this->input->post('tgl');
+		$mulai = $this->input->post('mulai');
+		$selesai = $this->input->post('selesai');
 
-			$data =[
-				'kode_wilayah' => $kode,
-				'kode_perwilayah' => $kode_perwilayah,
-            	'tanggal' => $tgl,
-            	'mulai' => $mulai,
-            	'selesai' => $selesai,
-			];
+		$data = [
+			'kode_wilayah' => $kode,
+			'kode_perwilayah' => $kode_perwilayah,
+			'tanggal' => $tgl,
+			'mulai' => $mulai,
+			'selesai' => $selesai,
+		];
 
-			$this->ModelPetugas->insertDataJadwal($data);
+		$this->ModelPetugas->insertDataJadwal($data);
 
-			redirect('petugas/jadwal');
+		redirect('petugas/jadwal');
 	}
 
 
@@ -111,14 +108,19 @@ class Petugas extends CI_Controller
 	public function lihatDaftarPengambilan()
 	{
 		if ($this->session->userdata('email')) {
-
-			$desc['users'] = $this->db->get_where('users', ['email' => $this->session->userdata('email')])->row_array();
+			$desc['users'] = $this->ModelPetugas->cekData(['email' => $this->session->userdata('email')])->row_array();
 		}
 
-		$kode_wilayah_petugas = $this->session->userdata('kode_wilayah');
+		// $kode_wilayah_petugas = $this->session->userdata('kode_wilayah');
+		// $this->load->model('ModelWarga');
+		// $data['warga'] = $this->ModelWarga->get_warga_by_kode_wilayah_petugas_login($kode_wilayah_petugas);
 
-		$this->load->model('ModelWarga');
-		$data['warga'] = $this->ModelWarga->get_warga_by_kode_wilayah_petugas_login($kode_wilayah_petugas);
+
+
+		$data['warga'] = $this->ModelWarga->get_warga_by_kode_perwilayah($kode_perwilayah);
+
+		$data['jadwal'] = $this->ModelJadwal->getPerWilayah($kode_perwilayah);
+
 		$title['title'] = "Daftar Pengambilan";
 
 
@@ -127,5 +129,4 @@ class Petugas extends CI_Controller
 		$this->load->view('user/petugas/view-daftar-pengambilan.php', $data);
 		$this->load->view('templates/footer');
 	}
-
 }

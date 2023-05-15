@@ -4,12 +4,17 @@
 
 	<div class="text-center">
 		<br>
-		<h1 class="fw-bolder"><?= $title;?></h1>
+		<h1 class="fw-bolder"><?= $title; ?></h1>
 	</div>
 
 	<br>
 
-	<h4 class="fw-bold" style="align-items: right;"><?= $warga['kode_perwilayah'];?></h4>
+	<?php
+	foreach ($jadwal as $jdl) :
+	?>
+		<h4 class="fw-bold" style="align-items: right;"><?= $jdl->kode_perwilayah ?></h4>
+
+	<?php endforeach; ?>
 
 	<table class="table table-hover text-dark table-responsive text-center">
 		<thead class="table-secondary">
@@ -43,10 +48,10 @@
 					<td><?= $row->rw; ?></td>
 					<td><?= $row->ttl; ?></td>
 					<td><?= $row->no_telpon; ?></td>
-					<td><?= $row->kode_wilayah?></td>
-					<td><?= $row->kode_perwilayah?></td>
+					<td><?= $row->kode_wilayah ?></td>
+					<td><?= $row->kode_perwilayah ?></td>
 					<td>
-						<input class="form-check-input" type="checkbox" name="status_ambil" <?php if ($row->status_ambil == 1) echo "checked";?> disabled>
+						<input class="form-check-input" type="checkbox" name="status_ambil" <?php if ($row->status_ambil == 1) echo "checked"; ?> disabled>
 					</td>
 
 				</tr>
