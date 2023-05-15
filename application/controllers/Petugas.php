@@ -21,7 +21,7 @@ class Petugas extends CI_Controller
 
 		if ($this->session->userdata('email')) {
 
-			$desc['users'] = $this->db->get_where('users', ['email' => $this->session->userdata('email')])->row_array();
+			$desc['users'] = $this->ModelPetugas->cekData(['email' => $this->session->userdata('email')])->row_array();
 		}
 		$title['title'] = "Dashboard Petugas";
 
@@ -79,6 +79,7 @@ class Petugas extends CI_Controller
 			'selesai' => $selesai,
 		];
 
+
 		$this->ModelPetugas->insertDataJadwal($data);
 
 		redirect('petugas/jadwal');
@@ -88,8 +89,7 @@ class Petugas extends CI_Controller
 	public function lihatDataPenduduk()
 	{
 		if ($this->session->userdata('email')) {
-
-			$desc['users'] = $this->db->get_where('users', ['email' => $this->session->userdata('email')])->row_array();
+			$desc['users'] = $this->ModelPetugas->cekData(['email' => $this->session->userdata('email')])->row_array();
 		}
 
 		$kode_wilayah_petugas = $this->session->userdata('kode_wilayah');
@@ -105,8 +105,10 @@ class Petugas extends CI_Controller
 		$this->load->view('templates/footer');
 	}
 
-	public function lihatDaftarPengambilan()
+	public function lihatDaftarPengambilan($kode_perwilayah)
 	{
+
+
 		if ($this->session->userdata('email')) {
 			$desc['users'] = $this->ModelPetugas->cekData(['email' => $this->session->userdata('email')])->row_array();
 		}

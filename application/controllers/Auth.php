@@ -177,4 +177,5 @@ class Auth extends CI_Controller
 // 			$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Email Salah!</div>');
 // 			redirect('auth/petugas');
 // 		}
+
 // 	}
