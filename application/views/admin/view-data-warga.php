@@ -11,9 +11,9 @@
 
 			<div class="row justify-content-center mt-4">
 				<div class="col-md-5">
-					<form action="<?= base_url('admin/dataWarga'); ?>" method="post">
+					<form action="<?= base_url('admin/dataWarga'); ?>" method="get">
 						<div class="input-group mb-3">
-							<input type="text" class="form-control" placeholder="Cari data.. " name="keyword" autocomplete="off" autofocus>
+							<input type="text" class="form-control" placeholder="Cari data.. " name="keyword" autocomplete="off">
 							<div class="input-group-append">
 								<input class="btn btn-primary" type="submit" name="submit">
 							</div>
@@ -24,84 +24,116 @@
 
 			<a class="btn mb-3" style="background-color:#FE804D; color: white;" align="center" data-toggle="modal" data-target="#tambahWarga">Tambah Data Warga</a>
 
-			<center>
-				<div class="row justify-content-center">
-					<div class="col-4">
-						<?= $this->session->flashdata('message'); ?>
-						<?php if (validation_errors()) : ?>
-							<div class="alert alert-danger" role="alert">
-								<?= validation_errors(); ?>
-							</div>
-						<?php endif; ?>
-					</div>
+
+			<div class="row justify-content-center">
+				<div class="col-4">
+					<?= $this->session->flashdata('message'); ?>
+					<?php if (validation_errors()) : ?>
+						<div class="alert alert-danger" role="alert">
+							<?= validation_errors(); ?>
+						</div>
+					<?php endif; ?>
 				</div>
-			</center>
+			</div>
+
 
 			<h5>Hasil : <?= $total_rows; ?></h5>
 
-			<table class="table table-hover text-dark">
-				<thead class="table-secondary">
-					<tr>
-						<th scope="col">No</th>
-						<th scope="col">NIK</th>
-						<th scope="col">Nama</th>
-						<th scope="col">Kota</th>
-						<th scope="col">Kecamatan</th>
-						<th scope="col">Kelurahan</th>
-						<th scope="col">RT</th>
-						<th scope="col">RW</th>
-						<th scope="col">TTL</th>
-						<th scope="col">Nomor Telepon</th>
-						<th scope="col">Kode Wilayah</th>
-						<th scope="col">Kode Perwilayah</th>
-						<th scope="col">Aksi</th>
-					</tr>
-				</thead>
-				<tbody>
+			<div class="card-body px-0 pt-0 pb-2">
+				<div class="table-responsive p-0">
+					<table class="table align-items-center mb-0">
+						<thead>
+							<tr>
+								<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
+								<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama</th>
+								<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">NIK</th>
+								<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">TTL</th>
+								<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kota</th>
+								<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kecamatan</th>
+								<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kelurahan</th>
+								<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">RT/RW</th>
+								<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No Telepon</th>
+								<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kode Wilayah</th>
+								<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kode Perwilayah</th>
+								<th class="text-secondary opacity-7">Aksi</th>
+							</tr>
+						</thead>
 
-					<?php if (empty($warga)) : ?>
-						<tr>
-							<td colspan="6">
-								<div class="alert alert-danger" role="alert">Data tidak ditemukan!</div>
-							</td>
-						</tr>
-					<?php endif; ?>
+						<tbody>
+							<?php if (!empty($warga)) : ?>
 
-					<?php
-					foreach ($warga as $row) :
-					?>
+								<?php
+								foreach ($warga as $row) :
+								?>
 
-						<tr>
-							<td><?= ++$start; ?></td>
-							<td><?= $row->nik; ?></td>
-							<td><?= $row->nama; ?></td>
-							<td><?= $row->kota; ?></td>
-							<td><?= $row->kecamatan; ?></td>
-							<td><?= $row->kelurahan; ?></td>
-							<td><?= $row->rt; ?></td>
-							<td><?= $row->rw; ?></td>
-							<td><?= $row->ttl; ?></td>
-							<td><?= $row->no_telpon; ?></td>
-							<td><?= $row->kode_wilayah; ?></td>
-							<td><?= $row->kode_perwilayah; ?></td>
-							<td>
-								<a class="badge badge-success" data-toggle="modal" data-target="#editWarga<?= $row->nik; ?>" href=""><i class="fas fa-fw fa-edit"></i></a>
-								<a class="badge badge-danger" data-toggle="modal" data-target="#deleteWarga<?= $row->nik; ?>"><i class="fas fa-fw fa-trash"></i></a>
-							</td>
-						</tr>
+									<tr>
+										<td>
+											<span class="text-secondary"><?= ++$start; ?></span>
+										</td>
+										<td>
+											<div class="d-flex px-2 py-1">
+												<div>
+													<img src="/assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="team-2.jpg">
+												</div>
+												<div class="d-flex flex-column justify-content-center">
+													<h6 class="mb-0 text-sm"><?= $row->nama; ?></h6>
+													<p class="text-secondary mb-0"><?= $row->email; ?></p>
+												</div>
+											</div>
+										</td>
+										<td>
+											<span class="text-secondary"><?= $row->nik; ?></span>
+										</td>
+										<td class="align-middle text-center">
+											<span class="text-secondary"><?= $row->ttl; ?></span>
+										</td>
+										<td class="align-middle text-center">
+											<span class="text-secondary"><?= $row->kota; ?></span>
+										</td>
+										<td class="align-middle text-center">
+											<span class="text-secondary"><?= $row->kecamatan; ?></span>
+										</td>
+										<td class="align-middle text-center">
+											<span class="text-secondary"><?= $row->kelurahan; ?></span>
+										</td>
+										<td class="align-middle text-center">
+											<span class="text-secondary"><?= $row->rt; ?> / <?= $row->rw; ?></span>
+										</td>
+										<td class="align-middle text-center">
+											<span class="text-secondary"><?= $row->no_telpon; ?></span>
+										</td>
+										<td class="align-middle text-center">
+											<span class="text-secondary"><?= $row->kode_wilayah; ?></span>
+										</td>
+										<td class="align-middle text-center">
+											<span class="text-secondary"><?= $row->kode_perwilayah; ?></span>
+										</td>
+										<td>
+											<a class="btn btn-primary rounded-circle" data-toggle="modal" data-target="#editWarga<?= $row->id; ?>">
+												<i class="fas fa-edit"></i> </a>
+											<a class="btn btn-danger rounded-circle" data-toggle="modal" data-target="#deleteWarga<?= $row->id; ?>">
+												<i class="fas fa-trash"></i>
+											</a>
+										</td>
+									</tr>
 
-					<?php endforeach; ?>
-				</tbody>
-			</table>
+								<?php endforeach; ?>
+							<?php else : ?>
 
-			<?= $this->pagination->create_links(); ?>
+								<div class="alert alert-danger" role="alert">Hasil Tidak ditemukan.</div>
+							<?php endif; ?>
+						</tbody>
+					</table>
 
-			<hr class="container-divider">
 
+
+				</div>
+			</div>
 		</div>
+		<?= $pagination; ?>
+
+		<hr class="container-divider">
 	</div>
-</div>
-</div>
 </div>
 
 <!-- Tambah Data Warga -->
@@ -159,7 +191,7 @@
 
 <!-- Ubah Data Warga-->
 <?php foreach ($warga as $row) : ?>
-	<div class="modal fade" id="editWarga<?= $row->nik; ?>" tabindex="-1" aria-labelledby="newMenuModalLabel" aria-hidden="true">
+	<div class="modal fade" id="editWarga<?= $row->id; ?>" tabindex="-1" aria-labelledby="newMenuModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -171,6 +203,8 @@
 				<form action="<?= base_url('admin/editDataWarga'); ?>" method="post">
 					<div class="modal-body">
 						<div class="form-group">
+							<input type="hidden" class="form-control mb-2" id="id" name="id" value="<?= $row->id; ?>">
+
 							<label style="color:#FE804D;" class="form-label" for="nik">NIK</label>
 							<input type="number" class="form-control mb-2" id="nik" name="nik" value="<?= $row->nik; ?>" required>
 
@@ -214,7 +248,7 @@
 
 <!-- Hapus Data Warga -->
 <?php foreach ($warga as $row) : ?>
-	<div class="modal fade" id="deleteWarga<?= $row->nik; ?>" tabindex="-1" aria-labelledby="newMenuModalLabel" aria-hidden="true">
+	<div class="modal fade" id="deleteWarga<?= $row->id; ?>" tabindex="-1" aria-labelledby="newMenuModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -225,7 +259,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-					<a class="btn btn-primary" href="<?= base_url('admin/deleteDataWarga'); ?>/<?= $row->nik; ?>">Delete</a>
+					<a class="btn btn-primary" href="<?= base_url('admin/deleteDataWarga'); ?>/<?= $row->id; ?>">Delete</a>
 				</div>
 
 			</div>

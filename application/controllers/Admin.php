@@ -7,6 +7,7 @@ class Admin extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->library('form_validation');
+		$this->load->library('pagination');
 		$this->load->model('ModelAdmin');
 	}
 
@@ -26,39 +27,32 @@ class Admin extends CI_Controller
 
 	public function dataWarga()
 	{
-		$queryAllWarga = $this->ModelAdmin->getDataWarga();
-		$data = array('warga' => $queryAllWarga);
+
 		$title['title'] = "Data Warga";
 
-		$config['base_url'] = 'http://localhost/inbako/admin/dataWarga';
-
-		// ambil data keyword
-		if ($this->input->post('submit')) {
-			$data['keyword'] = $this->input->post('keyword');
+		//ambil data keyword
+		if ($this->input->get('submit')) {
+			$data['keyword'] = trim($this->input->get('keyword'));
 			$this->session->set_userdata('keyword', $data['keyword']);
 		} else {
-			$data['keyword'] = $this->session->userdata('keyword', $data);
+			$data['keyword'] = $this->session->userdata('keyword');
 		}
 
-		//pagination
-		//config
+		// config
 		$this->db->like('nama', $data['keyword']);
-		$this->db->or_like('kota', $data['keyword']);
-		$this->db->or_like('kecamatan', $data['keyword']);
-		$this->db->or_like('kelurahan', $data['keyword']);
-		$this->db->or_like('rt', $data['keyword']);
-		$this->db->or_like('rw', $data['keyword']);
-		$this->db->or_like('kode_wilayah', $data['keyword']);
-		$this->db->or_like('kode_perwilayah', $data['keyword']);
+		$this->db->or_like('nik', $data['keyword']);
+
 		$this->db->from('warga');
 		$config['total_rows'] = $this->db->count_all_results();
 		$data['total_rows'] = $config['total_rows'];
-		$config['per_page'] = 7;
+		$config['per_page'] = 5;
 
-		//initialize
+
+		// initialize pagination
 		$this->pagination->initialize($config);
 
 		$data['start'] = $this->uri->segment(3);
+		$data['pagination'] = $this->pagination->create_links();
 		$data['warga'] = $this->ModelAdmin->getWarga($config['per_page'], $data['start'], $data['keyword']);
 
 		$this->load->view('templates/header', $title);
@@ -107,6 +101,7 @@ class Admin extends CI_Controller
 
 	public function editDataWarga()
 	{
+		$id = $this->input->post('id');
 		$nik = $this->input->post('nik');
 		$nama = $this->input->post('nama');
 		$kota = $this->input->post('kota');
@@ -119,6 +114,7 @@ class Admin extends CI_Controller
 		$kode_perwilayah = $this->input->post('kode_perwilayah');
 
 		$data = [
+			'id' => $id,
 			'nik' => $nik,
 			'nama' => $nama,
 			'kota' => $kota,
@@ -133,7 +129,7 @@ class Admin extends CI_Controller
 		];
 
 		$where = [
-			'nik' => $nik
+			'id' => $id
 		];
 
 		$this->ModelAdmin->editDataWarga($where, $data, 'warga');
@@ -143,9 +139,9 @@ class Admin extends CI_Controller
 		redirect('admin/dataWarga');
 	}
 
-	public function deleteDataWarga($nik)
+	public function deleteDataWarga($id)
 	{
-		$where = array('nik' => $nik);
+		$where = array('id' => $id);
 		$this->ModelAdmin->deleteDataWarga($where, 'warga');
 		redirect('admin/dataWarga');
 	}

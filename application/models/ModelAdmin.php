@@ -3,28 +3,31 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class ModelAdmin extends CI_Model
 {
-	public function getDataWarga()
+	public function getAllWarga()
 	{
-		$query = $this->db->get('warga');
+		$query =  $this->db->get('warga');
 		return $query->result();
 	}
 
 	public function getWarga($limit, $start, $keyword = null)
 	{
-		$this->db->order_by('nik', 'DESC');
 		if ($keyword) {
 			$this->db->like('nama', $keyword);
+			$this->db->or_like('nik', $keyword);
+			$this->db->or_like('email', $keyword);
+			$this->db->or_like('no_telpon', $keyword);
 			$this->db->or_like('kota', $keyword);
-			$this->db->or_like('kecamatan', $keyword);
-			$this->db->or_like('kelurahan', $keyword);
-			$this->db->or_like('rt', $keyword);
-			$this->db->or_like('rw', $keyword);
-			$this->db->or_like('kode_wilayah', $keyword);
-			$this->db->or_like('kode_perwilayah', $keyword);
 		}
 		$query = $this->db->get('warga', $limit, $start);
 		return $query->result();
 	}
+
+	public function countAllWarga()
+	{
+		$query = $this->db->get('warga');
+		return $query->num_rows();
+	}
+
 
 	public function tambahDataWarga($data)
 	{
