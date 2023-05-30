@@ -63,12 +63,14 @@ class Admin extends CI_Controller
 
 	public function tambahDataWarga()
 	{
-		$queryAllWarga = $this->ModelAdmin->getDataWarga();
+		$queryAllWarga = $this->ModelAdmin->getAllWarga();
 		$data = array('warga' => $queryAllWarga);
 		$title['title'] = 'Tambah Data Warga';
 
-		$nik = $this->input->post('nik');
 		$nama = $this->input->post('nama');
+		$email = $this->input->post('email');
+		$nik = $this->input->post('nik');
+		$ttl = $this->input->post('ttl');
 		$kota = $this->input->post('kota');
 		$kecamatan = $this->input->post('kecamatan');
 		$kelurahan = $this->input->post('kelurahan');
@@ -79,8 +81,10 @@ class Admin extends CI_Controller
 		$kode_perwilayah = $this->input->post('kode_perwilayah');
 
 		$data = array(
-			'nik' => $nik,
 			'nama' => $nama,
+			'email' => $email,
+			'nik' => $nik,
+			'ttl' => $ttl,
 			'kota' => $kota,
 			'kecamatan' => $kecamatan,
 			'kelurahan' => $kelurahan,
@@ -94,9 +98,9 @@ class Admin extends CI_Controller
 
 		$this->ModelAdmin->tambahDataWarga($data);
 
-		$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data telah berhasil ditambahkan!</div>');
+		$this->session->set_flashdata('success_message', 'Data berhasil ditambahkan');
 
-		redirect('admin/dataWarga');
+		redirect('admin/dataWarga?keyword=&submit=Submit');
 	}
 
 	public function editDataWarga()
@@ -104,6 +108,7 @@ class Admin extends CI_Controller
 		$id = $this->input->post('id');
 		$nik = $this->input->post('nik');
 		$nama = $this->input->post('nama');
+		$ttl = $this->input->post('ttl');
 		$kota = $this->input->post('kota');
 		$kecamatan = $this->input->post('kecamatan');
 		$kelurahan = $this->input->post('kelurahan');
@@ -117,6 +122,7 @@ class Admin extends CI_Controller
 			'id' => $id,
 			'nik' => $nik,
 			'nama' => $nama,
+			'ttl' => $ttl,
 			'kota' => $kota,
 			'kecamatan' => $kecamatan,
 			'kelurahan' => $kelurahan,
@@ -134,16 +140,18 @@ class Admin extends CI_Controller
 
 		$this->ModelAdmin->editDataWarga($where, $data, 'warga');
 
-		$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data telah berhasil diubah!</div>');
+		// $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data telah berhasil diubah!</div>');
+		$this->session->set_flashdata('success_message', 'Data berhasil diubah');
 
-		redirect('admin/dataWarga');
+		redirect('admin/dataWarga?keyword=&submit=Submit');
 	}
 
 	public function deleteDataWarga($id)
 	{
 		$where = array('id' => $id);
 		$this->ModelAdmin->deleteDataWarga($where, 'warga');
-		redirect('admin/dataWarga');
+		$this->session->set_flashdata('success_message', 'Data berhasil dihapus');
+		redirect('admin/dataWarga?keyword=&submit=Submit');
 	}
 
 

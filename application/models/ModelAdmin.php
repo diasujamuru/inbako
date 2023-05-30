@@ -11,6 +11,7 @@ class ModelAdmin extends CI_Model
 
 	public function getWarga($limit, $start, $keyword = null)
 	{
+		$this->db->order_by('id', 'DESC');
 		if ($keyword) {
 			$this->db->like('nama', $keyword);
 			$this->db->or_like('nik', $keyword);

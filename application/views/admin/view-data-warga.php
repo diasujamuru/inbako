@@ -24,17 +24,14 @@
 
 			<a class="btn mb-3" style="background-color:#FE804D; color: white;" align="center" data-toggle="modal" data-target="#tambahWarga">Tambah Data Warga</a>
 
+			<?php if ($this->session->flashdata('success_message')) : ?>
+				<script>
+					// Tampilkan SweetAlert menggunakan flash data
+					Swal.fire("Sukses!", "<?php echo $this->session->flashdata('success_message'); ?>", "success");
+				</script>
+			<?php endif; ?>
 
-			<div class="row justify-content-center">
-				<div class="col-4">
-					<?= $this->session->flashdata('message'); ?>
-					<?php if (validation_errors()) : ?>
-						<div class="alert alert-danger" role="alert">
-							<?= validation_errors(); ?>
-						</div>
-					<?php endif; ?>
-				</div>
-			</div>
+
 
 
 			<h5>Hasil : <?= $total_rows; ?></h5>
@@ -44,18 +41,20 @@
 					<table class="table align-items-center mb-0">
 						<thead>
 							<tr>
-								<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
-								<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama</th>
-								<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">NIK</th>
-								<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">TTL</th>
-								<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kota</th>
-								<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kecamatan</th>
-								<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kelurahan</th>
-								<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">RT/RW</th>
-								<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No Telepon</th>
-								<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kode Wilayah</th>
-								<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kode Perwilayah</th>
-								<th class="text-secondary opacity-7">Aksi</th>
+
+								<th class="text-secondary text-center text-xs font-weight-bolder align-middle ">NO</th>
+								<!-- <th class="text-secondary text-center text-xs font-weight-bolder align-middle m-0">FOTO</th> -->
+								<th class="text-secondary text-center text-xs font-weight-bolder align-middle">NAMA</th>
+								<th class="text-secondary text-center text-xs font-weight-bolder align-middle">NIK</th>
+								<th class="text-secondary text-center text-xs font-weight-bolder align-middle">Tanggal Lahir</th>
+								<th class="text-secondary text-center text-xs font-weight-bolder align-middle">Kota</th>
+								<th class="text-secondary text-center text-xs font-weight-bolder align-middle">Kecamatan</th>
+								<th class="text-secondary text-center text-xs font-weight-bolder align-middle">Kelurahan</th>
+								<th class="text-secondary text-center text-xs font-weight-bolder align-middle">RT/RW</th>
+								<th class="text-secondary text-center text-xs font-weight-bolder align-middle">No <br> Telepon</th>
+								<th class="text-secondary text-center text-xs font-weight-bolder align-middle">Kode <br> Wilayah</th>
+								<th class="text-secondary text-center text-xs font-weight-bolder align-middle">Kode <br> Perwilayah</th>
+								<th class="text-secondary text-center text-xs font-weight-bolder align-middle">Aksi</th>
 							</tr>
 						</thead>
 
@@ -67,51 +66,54 @@
 								?>
 
 									<tr>
-										<td>
-											<span class="text-secondary"><?= ++$start; ?></span>
+										<td class="align-middle text-center text-xs ">
+											<span class="text-secondary text-xs "><?= ++$start; ?></span>
 										</td>
-										<td>
-											<div class="d-flex px-2 py-1">
-												<div>
-													<img src="/assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="team-2.jpg">
-												</div>
-												<div class="d-flex flex-column justify-content-center">
-													<h6 class="mb-0 text-sm"><?= $row->nama; ?></h6>
-													<p class="text-secondary mb-0"><?= $row->email; ?></p>
-												</div>
+										<!-- <td class="position-relative">
+											<div>
+												<img src=" ../assets/img/team-2.jpg" class="img img-fluid rounded-circle w-50 position-absolute" alt="team-2.jpg">
 											</div>
+										</td> -->
+										<td class="align-middle text-center text-xs p-2">
+											<span class="text-secondary mb-0 text-xs ">
+												<h6><?= $row->nama; ?></h6>
+											</span>
+											<span class="text-secondary mb-0 text-xs ">
+												<p><?= $row->email; ?></p>
+											</span>
 										</td>
-										<td>
-											<span class="text-secondary"><?= $row->nik; ?></span>
+
+										<td class="align-middle text-center text-xs ">
+											<span class="text-secondary text-xs "><?= $row->nik; ?></span>
 										</td>
-										<td class="align-middle text-center">
+										<td class="align-middle text-center text-xs ">
 											<span class="text-secondary"><?= $row->ttl; ?></span>
 										</td>
-										<td class="align-middle text-center">
+										<td class="align-middle text-center text-xs ">
 											<span class="text-secondary"><?= $row->kota; ?></span>
 										</td>
-										<td class="align-middle text-center">
+										<td class="align-middle text-center text-xs ">
 											<span class="text-secondary"><?= $row->kecamatan; ?></span>
 										</td>
-										<td class="align-middle text-center">
+										<td class="align-middle text-center text-xs ">
 											<span class="text-secondary"><?= $row->kelurahan; ?></span>
 										</td>
-										<td class="align-middle text-center">
+										<td class="align-middle text-center text-xs ">
 											<span class="text-secondary"><?= $row->rt; ?> / <?= $row->rw; ?></span>
 										</td>
-										<td class="align-middle text-center">
+										<td class="align-middle text-center text-xs ">
 											<span class="text-secondary"><?= $row->no_telpon; ?></span>
 										</td>
-										<td class="align-middle text-center">
+										<td class="align-middle text-center text-xs ">
 											<span class="text-secondary"><?= $row->kode_wilayah; ?></span>
 										</td>
-										<td class="align-middle text-center">
+										<td class="align-middle text-center text-xs ">
 											<span class="text-secondary"><?= $row->kode_perwilayah; ?></span>
 										</td>
 										<td>
-											<a class="btn btn-primary rounded-circle" data-toggle="modal" data-target="#editWarga<?= $row->id; ?>">
+											<a class="badge badge-primary rounded-circle" data-toggle="modal" data-target="#editWarga<?= $row->id; ?>">
 												<i class="fas fa-edit"></i> </a>
-											<a class="btn btn-danger rounded-circle" data-toggle="modal" data-target="#deleteWarga<?= $row->id; ?>">
+											<a class="badge badge-danger rounded-circle btn-delete" data-url="<?= base_url('admin/deleteDataWarga'); ?>/<?= $row->id; ?>">
 												<i class="fas fa-trash"></i>
 											</a>
 										</td>
@@ -154,6 +156,12 @@
 
 						<label style="color:#FE804D;" class="form-label" for="nama">Nama</label>
 						<input type="text" class="form-control mb-2" id="nama" name="nama" required>
+
+						<label style="color:#FE804D;" class="form-label" for="email">Email</label>
+						<input type="text" class="form-control mb-2" id="email" name="email" required>
+
+						<label style="color:#FE804D;" class="form-label" for="ttl">tanggal Lahir</label>
+						<input type="text" class="form-control mb-2" id="ttl" name="ttl" required>
 
 						<label style="color:#FE804D;" class="form-label" for="nama">Kota</label>
 						<input type="text" class="form-control mb-2" id="kota" name="kota" required>
@@ -210,6 +218,9 @@
 
 							<label style="color:#FE804D;" class="form-label" for="nama">Nama</label>
 							<input type="text" class="form-control mb-2" id="nama" name="nama" placeholder="Nama" value="<?= $row->nama; ?>" required>
+
+							<label style="color:#FE804D;" class="form-label" for="ttl">Tanggal Lahir</label>
+							<input type="date" class="form-control mb-2" id="ttl" name="ttl" placeholder="ttl" value="<?= $row->ttl; ?>" required>
 
 							<label style="color:#FE804D;" class="form-label" for="nama">Nama</label>
 							<input type="text" class="form-control mb-2" id="kota" name="kota" placeholder="Kota" value="<?= $row->kota; ?>" required>
