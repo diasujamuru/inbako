@@ -1,6 +1,7 @@
 <?php
 
 // config
+$config['base_url'] = 'http://localhost/inbako/admin/dataWarga';
 $config['num_links'] = 2;
 
 //styling

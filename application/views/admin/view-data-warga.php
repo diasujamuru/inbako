@@ -13,7 +13,7 @@
 				<div class="col-md-5">
 					<form action="<?= base_url('admin/dataWarga'); ?>" method="get">
 						<div class="input-group mb-3">
-							<input type="text" class="form-control" placeholder="Cari data.. " value="<?= isset($keyword) ? $keyword : ''; ?>" name="keyword" autocomplete="off">
+							<input type="text" class="form-control" placeholder="Cari data.. " name="keyword" autocomplete="off">
 							<div class="input-group-append">
 								<input class="btn btn-primary" type="submit" name="submit">
 							</div>
@@ -22,7 +22,7 @@
 				</div>
 			</div>
 
-			<a class="btn mb-3" style="background-color:#FE804D; color: white; text-align:center;" data-toggle="modal" data-target="#tambahWarga">Tambah Data Warga</a>
+			<a class="btn mb-3" style="background-color:#FE804D; color: white;" align="center" data-toggle="modal" data-target="#tambahWarga">Tambah Data Warga</a>
 
 			<?php if ($this->session->flashdata('success_message')) : ?>
 				<script>
@@ -113,7 +113,7 @@
 										<td>
 											<a class="badge badge-primary rounded-circle" data-toggle="modal" data-target="#editWarga<?= $row->id; ?>">
 												<i class="fas fa-edit"></i> </a>
-											<a class="badge badge-danger rounded-circle btn-delete-warga" data-url="<?= base_url('admin/deleteDataWarga'); ?>/<?= $row->id; ?>">
+											<a class="badge badge-danger rounded-circle btn-delete" data-url="<?= base_url('admin/deleteDataWarga'); ?>/<?= $row->id; ?>">
 												<i class="fas fa-trash"></i>
 											</a>
 										</td>
@@ -158,10 +158,10 @@
 						<input type="text" class="form-control mb-2" id="nama" name="nama" required>
 
 						<label style="color:#FE804D;" class="form-label" for="email">Email</label>
-						<input type="email" class="form-control mb-2" id="email" name="email" required>
+						<input type="text" class="form-control mb-2" id="email" name="email" required>
 
 						<label style="color:#FE804D;" class="form-label" for="ttl">tanggal Lahir</label>
-						<input type="date" class="form-control mb-2" id="ttl" name="ttl" required>
+						<input type="text" class="form-control mb-2" id="ttl" name="ttl" required>
 
 						<label style="color:#FE804D;" class="form-label" for="nama">Kota</label>
 						<input type="text" class="form-control mb-2" id="kota" name="kota" required>
@@ -219,13 +219,10 @@
 							<label style="color:#FE804D;" class="form-label" for="nama">Nama</label>
 							<input type="text" class="form-control mb-2" id="nama" name="nama" placeholder="Nama" value="<?= $row->nama; ?>" required>
 
-							<label style="color:#FE804D;" class="form-label" for="email">Email</label>
-							<input type="text" class="form-control mb-2" id="email" name="email" placeholder="Email" value="<?= $row->email; ?>" required>
-
 							<label style="color:#FE804D;" class="form-label" for="ttl">Tanggal Lahir</label>
 							<input type="date" class="form-control mb-2" id="ttl" name="ttl" placeholder="ttl" value="<?= $row->ttl; ?>" required>
 
-							<label style="color:#FE804D;" class="form-label" for="nama">Kota</label>
+							<label style="color:#FE804D;" class="form-label" for="nama">Nama</label>
 							<input type="text" class="form-control mb-2" id="kota" name="kota" placeholder="Kota" value="<?= $row->kota; ?>" required>
 
 							<label style="color:#FE804D;" class="form-label" for="kecamatan">Kecamatan</label>
@@ -255,6 +252,27 @@
 						<button type="submit" class="btn btn-primary">Ubah</button>
 					</div>
 				</form>
+			</div>
+		</div>
+	</div>
+<?php endforeach; ?>
+
+<!-- Hapus Data Warga -->
+<?php foreach ($warga as $row) : ?>
+	<div class="modal fade" id="deleteWarga<?= $row->id; ?>" tabindex="-1" aria-labelledby="newMenuModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="newMenuModalLabel">Hapus Data <?= $row->nama; ?></h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+					<a class="btn btn-primary" href="<?= base_url('admin/deleteDataWarga'); ?>/<?= $row->id; ?>">Delete</a>
+				</div>
+
 			</div>
 		</div>
 	</div>
