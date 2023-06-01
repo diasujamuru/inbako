@@ -1,7 +1,7 @@
 <body>
 	<div id="wrapper">
 		<!-- Sidebar -->
-		<ul class="navbar-nav sidebar sidebar-dark accordion"  style="background-color: #FE804D;" id="accordionSidebar">
+		<ul class="navbar-nav sidebar sidebar-dark accordion" style="background-color: #FE804D;" id="accordionSidebar">
 
 			<!-- Sidebar - Brand -->
 			<a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url('dashboard'); ?>">
@@ -19,23 +19,31 @@
 					<i class="fas fa-fw fa-tachometer-alt"></i>
 					<span>Dashboard</span></a>
 			</li>
-
 			<hr class="sidebar-divider my-0">
 
-			<li class="nav-item">
-				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-					<i class="fas fa-fw fa-user"></i>
-					<span>Data</span>
-				</a>
-				<div id="collapseTwo" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
-					<div class="table-secondary py-2 collapse-inner rounded">
-						<a class="collapse-item" href="<?= base_url('admin/dataWarga') ?>">Warga</a>
-						<a class="collapse-item" href="<?= base_url('admin/dataPetugas') ?>">Petugas</a>
-						<a class="collapse-item" href="<?= base_url('admin/dataJadwal') ?>">Jadwal</a>
-					</div>
-				</div>
-			</li>
 
+			<li class="nav-item <?= $this->uri->segment(2) == 'dataWarga' || (!empty($warga)) ? 'active bg-danger rounded' : '' ?>">
+				<a class="nav-link" href="<?= base_url('admin/dataWarga?keyword=&submit=Submit') ?>">
+					<i class="fas fa-solid fa-users"></i>
+					<span>Data Warga</span>
+				</a>
+			</li>
+			<hr class="sidebar-divider my-0">
+
+			<li class="nav-item <?= $this->uri->segment(2) == 'dataPetugas' || (!empty($petugas)) ? 'active bg-danger rounded' : '' ?>">
+				<a class="nav-link" href="<?= base_url('admin/dataPetugas?keyword=&submit=Submit') ?>">
+					<i class="fa fa-solid fa-user-tie"></i>
+					<span>Data Petugas</span>
+				</a>
+			</li>
+			<hr class="sidebar-divider my-0">
+
+			<li class="nav-item <?= $this->uri->segment(2) == 'dataJadwal' || (!empty($jadwal)) ? 'active bg-danger rounded' : '' ?>">
+				<a class="nav-link" href="<?= base_url('admin/dataJadwal') ?>">
+					<i class="far fa-calendar-alt"></i>
+					<span>Data Jadwal</span>
+				</a>
+			</li>
 			<hr class="sidebar-divider my-0">
 
 			<li class="nav-item">

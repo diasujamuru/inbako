@@ -44,6 +44,8 @@ class Auth extends CI_Controller
 					redirect('petugas');
 				} else if ($users['role_id'] == 3) {
 					redirect('penerima');
+				} else if ($users['role_id'] == 1) {
+					redirect('admin');
 				}
 			} else {
 				$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Wrong Password!</div>');
@@ -149,7 +151,6 @@ class Auth extends CI_Controller
 		$this->session->set_flashdata('message', '<script>alert("Your have been logged out");</script>');
 		redirect('auth/admin');
 	}
-
 }
 
 
