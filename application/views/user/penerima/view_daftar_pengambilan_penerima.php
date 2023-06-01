@@ -7,6 +7,10 @@
 		<h1 class="fw-bolder"><?= $title; ?></h1>
 	</div>
 
+	<div class="text-center">
+		<a type="button" data-target="#newJadwal" data-toggle="modal" style="background-color: #FE804D;" class="btn text-white">Ambil Sembako</a>
+	</div>
+
 	<br>
 
 	<table class="table table-hover text-dark table-responsive text-center">

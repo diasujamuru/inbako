@@ -8,7 +8,7 @@ class Petugas extends CI_Controller
 		parent::__construct();
 		$this->load->library('form_validation');
 		$this->load->model('ModelJadwal');
-		$this->load->model('ModelWarga');
+		$this->load->model('ModelPenerima');
 		$this->load->model('ModelPetugas');
 
 		if (empty($this->session->userdata('email'))) {
@@ -94,8 +94,8 @@ class Petugas extends CI_Controller
 
 		$kode_wilayah_petugas = $this->session->userdata('kode_wilayah');
 
-		$this->load->model('ModelWarga');
-		$data['warga'] = $this->ModelWarga->get_warga_by_kode_wilayah_petugas_login($kode_wilayah_petugas);
+		$this->load->model('ModelPenerima');
+		$data['warga'] = $this->ModelPenerima->get_warga_by_kode_wilayah_petugas_login($kode_wilayah_petugas);
 		$title['title'] = "Data Penduduk";
 
 
@@ -114,12 +114,12 @@ class Petugas extends CI_Controller
 		}
 
 		// $kode_wilayah_petugas = $this->session->userdata('kode_wilayah');
-		// $this->load->model('ModelWarga');
-		// $data['warga'] = $this->ModelWarga->get_warga_by_kode_wilayah_petugas_login($kode_wilayah_petugas);
+		// $this->load->model('ModelPenerima');
+		// $data['warga'] = $this->ModelPenerima->get_warga_by_kode_wilayah_petugas_login($kode_wilayah_petugas);
 
 
 
-		$data['warga'] = $this->ModelWarga->get_warga_by_kode_perwilayah($kode_perwilayah);
+		$data['warga'] = $this->ModelPenerima->get_warga_by_kode_perwilayah($kode_perwilayah);
 
 		$data['jadwal'] = $this->ModelJadwal->getPerWilayah($kode_perwilayah);
 

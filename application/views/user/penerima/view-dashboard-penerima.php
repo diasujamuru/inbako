@@ -26,7 +26,7 @@
 					<div class="card-body">
 						<h5 class="card-title text-white">Jadwal Pengambilan</h5>
 						<div class="text-center">
-							<a href="#" class="btn" style="background-color: white; color:#FE804D;">Lihat Jadwal</a>
+							<a href="<?= base_url('penerima/jadwal')?>" class="btn" style="background-color: white; color:#FE804D;">Lihat Jadwal</a>
 						</div>
 					</div>
 				</div>

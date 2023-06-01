@@ -92,7 +92,7 @@
 </div>
 </div>
 
-<!-- Tambah Data Petugas -->
+<!-- Tambah Data Jadwal -->
 <div class="modal fade" id="tambahJadwal" tabindex="-1" aria-labelledby="newMenuModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -144,8 +144,7 @@
 					<div class="modal-body">
 						<div class="form-group">
 
-							<label style="color:#FE804D;" class="form-label" for="id">Id</label>
-							<input type="hidden" class="form-control mb-2" id="id" name="id" placeholder="Id" value="<?= $row->kode_wilayah; ?>" required>
+							<input type="number" class="form-control mb-2" id="id" name="id" placeholder="Id" value="<?= $row->id; ?>" readonly required>
 
 							<label style="color:#FE804D;" class="form-label" for="kode_wilayah">Kode Wilayah</label>
 							<input type="number" class="form-control mb-2" id="kode_wilayah" name="kode_wilayah" placeholder="Kode Wilayah" value="<?= $row->kode_wilayah; ?>" required>

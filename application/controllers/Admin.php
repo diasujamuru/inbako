@@ -169,8 +169,7 @@ class Admin extends CI_Controller
 
 		//pagination
 		//config
-		$this->db->like('nik', $data['keyword']);
-		$this->db->or_like('nama', $data['keyword']);
+		$this->db->like('nama', $data['keyword']);
 		$this->db->or_like('kota', $data['keyword']);
 		$this->db->or_like('email', $data['keyword']);
 		$this->db->or_like('kecamatan', $data['keyword']);
