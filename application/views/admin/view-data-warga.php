@@ -113,7 +113,7 @@
 										<td>
 											<a class="badge badge-primary rounded-circle" data-toggle="modal" data-target="#editWarga<?= $row->id; ?>">
 												<i class="fas fa-edit"></i> </a>
-											<a class="badge badge-danger rounded-circle btn-delete" data-url="<?= base_url('admin/deleteDataWarga'); ?>/<?= $row->id; ?>">
+											<a class="badge badge-danger rounded-circle btn-delete-warga" data-url="<?= base_url('admin/deleteDataWarga'); ?>/<?= $row->id; ?>">
 												<i class="fas fa-trash"></i>
 											</a>
 										</td>

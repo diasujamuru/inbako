@@ -31,7 +31,7 @@
 			<hr class="sidebar-divider my-0">
 
 			<li class="nav-item <?= $this->uri->segment(2) == 'dataPetugas' || (!empty($petugas)) ? 'active bg-danger rounded' : '' ?>">
-				<a class="nav-link" href="<?= base_url('admin/dataPetugas') ?>">
+				<a class="nav-link" href="<?= base_url('admin/dataPetugas?keyword=&submit=Submit') ?>">
 					<i class="fa fa-solid fa-user-tie"></i>
 					<span>Data Petugas</span>
 				</a>

@@ -11,9 +11,9 @@
 
 			<div class="row justify-content-center mt-4">
 				<div class="col-md-5">
-					<form action="<?= base_url('admin/dataPetugas'); ?>" method="post">
+					<form action="<?= base_url('admin/dataPetugas'); ?>" method="get">
 						<div class="input-group mb-3">
-							<input type="text" class="form-control" placeholder="Cari data.. " name="keyword" autocomplete="off" autofocus>
+							<input type="text" class="form-control" placeholder="Cari data.. " value="<?= isset($keyword) ? $keyword : ''; ?>" name="keyword" autocomplete="off">
 							<div class="input-group-append">
 								<input class="btn btn-primary" type="submit" name="submit">
 							</div>
@@ -22,80 +22,107 @@
 				</div>
 			</div>
 
-			<a class="btn mb-3" style="background-color:#FE804D; color: white;" align="center" data-toggle="modal" data-target="#tambahPetugas">Tambah Data Petugas</a>
+			<a class="btn mb-3" style="background-color:#FE804D; color: white; text-align:center;" data-toggle="modal" data-target="#tambahPetugas">Tambah Data Petugas</a>
 
-			<center>
-				<div class="row justify-content-center">
-					<div class="col-4">
-						<?= $this->session->flashdata('message'); ?>
-						<?php if (validation_errors()) : ?>
-							<div class="alert alert-danger" role="alert">
-								<?= validation_errors(); ?>
-							</div>
-						<?php endif; ?>
-					</div>
-				</div>
-			</center>
+			<?php if ($this->session->flashdata('success_message')) : ?>
+				<script>
+					// Tampilkan SweetAlert menggunakan flash data
+					Swal.fire("Sukses!", "<?= $this->session->flashdata('success_message'); ?>", "success");
+				</script>
+			<?php endif; ?>
+
+			<?php echo validation_errors(); ?>
 
 			<h5>Hasil : <?= $total_rows; ?></h5>
 
-			<table class="table table-hover text-dark">
-				<thead class="table-secondary">
-					<tr>
-						<th scope="col">No</th>
-						<th scope="col">NIK</th>
-						<th scope="col">Nama</th>
-						<th scope="col">Kota</th>
-						<th scope="col">Email</th>
-						<th scope="col">Kecamatan</th>
-						<th scope="col">Kelurahan</th>
-						<th scope="col">Kode Wilayah</th>
-						<th scope="col">Status</th>
-						<th scope="col">Aksi</th>
-					</tr>
-				</thead>
-				<tbody>
+			<div class="card-body px-0 pt-0 pb-2">
+				<div class="table-responsive p-0">
+					<table class="table align-items-center mb-0">
+						<thead>
+							<tr>
 
-					<?php if (empty($petugas)) : ?>
-						<tr>
-							<td colspan="6">
-								<div class="alert alert-danger" role="alert">Data tidak ditemukan!</div>
-							</td>
-						</tr>
-					<?php endif; ?>
+								<th class="text-secondary text-center text-xs font-weight-bolder align-middle ">NO</th>
+								<!-- <th class="text-secondary text-center text-xs font-weight-bolder align-middle m-0">FOTO</th> -->
+								<th class="text-secondary text-center text-xs font-weight-bolder align-middle">NAMA</th>
+								<th class="text-secondary text-center text-xs font-weight-bolder align-middle">NIK</th>
+								<th class="text-secondary text-center text-xs font-weight-bolder align-middle">Tanggal Lahir</th>
+								<th class="text-secondary text-center text-xs font-weight-bolder align-middle">Kota</th>
+								<th class="text-secondary text-center text-xs font-weight-bolder align-middle">Kecamatan</th>
+								<th class="text-secondary text-center text-xs font-weight-bolder align-middle">Kelurahan</th>
+								<th class="text-secondary text-center text-xs font-weight-bolder align-middle">No <br> Telepon</th>
+								<th class="text-secondary text-center text-xs font-weight-bolder align-middle">Aksi</th>
+							</tr>
+						</thead>
 
-					<?php
-					foreach ($petugas as $row) :
-					?>
+						<tbody>
+							<?php if (!empty($petugas)) : ?>
 
-						<tr>
-							<td><?= ++$start; ?></td>
-							<td><?= $row->nik; ?></td>
-							<td><?= $row->nama; ?></td>
-							<td><?= $row->kota; ?></td>
-							<td><?= $row->email; ?></td>
-							<td><?= $row->kecamatan; ?></td>
-							<td><?= $row->kelurahan; ?></td>
-							<td><?= $row->kode_wilayah; ?></td>
-							<td><?= $row->status; ?></td>
-							<td>
-								<a class="badge badge-success" data-toggle="modal" data-target="#editPetugas<?= $row->nik; ?>" href=""><i class="fas fa-fw fa-edit"></i></a>
-								<a class="badge badge-danger" data-toggle="modal" data-target="#deletePetugas<?= $row->nik; ?>"><i class="fas fa-fw fa-trash"></i></a>
-							</td>
-						</tr>
+								<?php
+								foreach ($petugas as $row) :
+								?>
 
-					<?php endforeach; ?>
-				</tbody>
-			</table>
+									<tr>
+										<td class="align-middle text-center text-xs ">
+											<span class="text-secondary text-xs "><?= ++$start; ?></span>
+										</td>
+										<!-- <td class="position-relative">
+											<div>
+												<img src=" ../assets/img/team-2.jpg" class="img img-fluid rounded-circle w-50 position-absolute" alt="team-2.jpg">
+											</div>
+										</td> -->
+										<td class="align-middle text-center text-xs p-2">
+											<span class="text-secondary mb-0 text-xs ">
+												<h6><?= $row->nama; ?></h6>
+											</span>
+											<span class="text-secondary mb-0 text-xs ">
+												<p><?= $row->email; ?></p>
+											</span>
+										</td>
 
-			<?= $this->pagination->create_links(); ?>
+										<td class="align-middle text-center text-xs ">
+											<span class="text-secondary text-xs "><?= $row->nik; ?></span>
+										</td>
+										<td class="align-middle text-center text-xs ">
+											<span class="text-secondary"><?= $row->tgl_lahir; ?></span>
+										</td>
+										<td class="align-middle text-center text-xs ">
+											<span class="text-secondary"><?= $row->kota; ?></span>
+										</td>
+										<td class="align-middle text-center text-xs ">
+											<span class="text-secondary"><?= $row->kecamatan; ?></span>
+										</td>
+										<td class="align-middle text-center text-xs ">
+											<span class="text-secondary"><?= $row->kelurahan; ?></span>
+										</td>
+										<td class="align-middle text-center text-xs ">
+											<span class="text-secondary"><?= $row->no_telepon; ?></span>
+										</td>
+										<td>
+											<a class="badge badge-primary rounded-circle" data-toggle="modal" data-target="#editPetugas<?= $row->id; ?>">
+												<i class="fas fa-edit"></i> </a>
+											<a class="badge badge-danger rounded-circle btn-delete-petugas" data-url="<?= base_url('admin/deleteDataPetugas'); ?>/<?= $row->id; ?>">
+												<i class="fas fa-trash"></i>
+											</a>
+										</td>
+									</tr>
 
-			<hr class="container-divider">
+								<?php endforeach; ?>
+							<?php else : ?>
 
+								<div class="alert alert-danger" role="alert">Hasil Tidak ditemukan.</div>
+							<?php endif; ?>
+						</tbody>
+					</table>
+
+
+
+				</div>
+			</div>
 		</div>
+		<?= $pagination; ?>
+
+		<hr class="container-divider">
 	</div>
-</div>
-</div>
 </div>
 
 <!-- Tambah Data Petugas -->
@@ -108,7 +135,8 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<form action="<?= base_url('admin/tambahDataPetugas'); ?>" method="post">
+			<form action="<?= base_url('admin/tambahDataPetugas'); ?>" id="formTambahData" method="post">
+
 				<div class="modal-body">
 					<div class="form-group">
 						<label style="color:#FE804D;" class="form-label" for="nik">NIK</label>
@@ -117,11 +145,14 @@
 						<label style="color:#FE804D;" class="form-label" for="nama">Nama</label>
 						<input type="text" class="form-control mb-2" id="nama" name="nama" required>
 
+						<label style="color:#FE804D;" class="form-label" for="email">Email</label>
+						<input type="email" class="form-control mb-2" id="email" name="email" required>
+
+						<label style="color:#FE804D;" class="form-label" for="tgl_lahir">tanggal Lahir</label>
+						<input type="date" class="form-control mb-2" id="tgl_lahir" name="tgl_lahir" required>
+
 						<label style="color:#FE804D;" class="form-label" for="nama">Kota</label>
 						<input type="text" class="form-control mb-2" id="kota" name="kota" required>
-
-						<label style="color:#FE804D;" class="form-label" for="nama">Email</label>
-						<input type="email" class="form-control mb-2" id="email" name="email" required>
 
 						<label style="color:#FE804D;" class="form-label" for="kecamatan">Kecamatan</label>
 						<input type="text" class="form-control mb-2" id="kecamatan" name="kecamatan" required>
@@ -129,88 +160,70 @@
 						<label style="color:#FE804D;" class="form-label" for="kelurahan">Kelurahan</label>
 						<input type="text" class="form-control mb-2" id="kelurahan" name="kelurahan" required>
 
+						<label style="color:#FE804D;" class="form-label" for="no_telepon">Nomor Telepon</label>
+						<input type="number" class="form-control mb-2" id="no_telepon" name="no_telepon" required>
+
 						<label style="color:#FE804D;" class="form-label" for="kode_wilayah">Kode Wilayah</label>
 						<input type="number" class="form-control mb-2" id="kode_wilayah" name="kode_wilayah" required>
 
-						<label style="color:#FE804D;" class="form-label" for="status">Status</label>
-						<input type="text" class="form-control mb-2" id="status" name="status" required>
 					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-					<button type="submit" class="btn btn-primary">Tambah</button>
+					<button type="submit" id="submitBtn" class="btn btn-primary">Tambah</button>
 				</div>
 			</form>
 		</div>
 	</div>
 </div>
+< <!-- Ubah Data Petugas-->
+	<?php foreach ($petugas as $row) : ?>
+		<div class="modal fade" id="editPetugas<?= $row->id; ?>" tabindex="-1" aria-labelledby="newMenuModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="newMenuModalLabel">Edit Data <?= $row->nama; ?></h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<form action="<?= base_url('admin/editDataPetugas'); ?>" method="post">
+						<div class="modal-body">
+							<div class="form-group">
+								<input type="hidden" class="form-control mb-2" id="id" name="id" value="<?= $row->id; ?>">
 
-<!-- Ubah Data Petugas-->
-<?php foreach ($petugas as $row) : ?>
-	<div class="modal fade" id="editPetugas<?= $row->nik; ?>" tabindex="-1" aria-labelledby="newMenuModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="newMenuModalLabel">Edit Data <?= $row->nama; ?></h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<form action="<?= base_url('admin/editDataPetugas'); ?>" method="post">
-					<div class="modal-body">
-						<div class="form-group">
-							<label style="color:#FE804D;" class="form-label" for="nik">NIK</label>
-							<input type="number" class="form-control mb-2" id="nik" name="nik" value="<?= $row->nik; ?>" required>
+								<label style="color:#FE804D;" class="form-label" for="nik">NIK</label>
+								<input type="number" class="form-control mb-2" id="nik" name="nik" value="<?= $row->nik; ?>" required>
 
-							<label style="color:#FE804D;" class="form-label" for="nama">Nama</label>
-							<input type="text" class="form-control mb-2" id="nama" name="nama" placeholder="Nama" value="<?= $row->nama; ?>" required>
+								<label style="color:#FE804D;" class="form-label" for="nama">Nama</label>
+								<input type="text" class="form-control mb-2" id="nama" name="nama" placeholder="Nama" value="<?= $row->nama; ?>" required>
 
-							<label style="color:#FE804D;" class="form-label" for="nama">Nama</label>
-							<input type="text" class="form-control mb-2" id="kota" name="kota" placeholder="Kota" value="<?= $row->kota; ?>" required>
+								<label style="color:#FE804D;" class="form-label" for="tgl_lahir">Tanggal Lahir</label>
+								<input type="date" class="form-control mb-2" id="tgl_lahir" name="tgl_lahir" placeholder="tgl_lahir" value="<?= $row->tgl_lahir; ?>" required>
 
-							<label style="color:#FE804D;" class="form-label" for="nama">Email</label>
-							<input type="email" class="form-control mb-2" id="email" name="email" placeholder="Email" value="<?= $row->email; ?>" required>
+								<label style="color:#FE804D;" class="form-label" for="nama">Kota</label>
+								<input type="text" class="form-control mb-2" id="kota" name="kota" placeholder="Kota" value="<?= $row->kota; ?>" required>
 
-							<label style="color:#FE804D;" class="form-label" for="kecamatan">Kecamatan</label>
-							<input type="text" class="form-control mb-2" id="kecamatan" name="kecamatan" placeholder="Kecamatan" value="<?= $row->kecamatan; ?>" required>
+								<label style="color:#FE804D;" class="form-label" for="kecamatan">Kecamatan</label>
+								<input type="text" class="form-control mb-2" id="kecamatan" name="kecamatan" placeholder="Kecamatan" value="<?= $row->kecamatan; ?>" required>
 
-							<label style="color:#FE804D;" class="form-label" for="kelurahan">Kelurahan</label>
-							<input type="text" class="form-control mb-2" id="kelurahan" name="kelurahan" placeholder="Kelurahan" value="<?= $row->kelurahan; ?>" required>
+								<label style="color:#FE804D;" class="form-label" for="kelurahan">Kelurahan</label>
+								<input type="text" class="form-control mb-2" id="kelurahan" name="kelurahan" placeholder="Kelurahan" value="<?= $row->kelurahan; ?>" required>
 
-							<label style="color:#FE804D;" class="form-label" for="kode_wilayah">Kode Wilayah</label>
-							<input type="number" class="form-control mb-2" id="kode_wilayah" name="kode_wilayah" placeholder="Kode Wilayah" value="<?= $row->kode_wilayah; ?>" required>
+								<label style="color:#FE804D;" class="form-label" for="no_telepon">Nomor Telepon</label>
+								<input type="number" class="form-control mb-2" id="no_telepon" name="no_telepon" placeholder="Nomor Telepon" value="<?= $row->no_telepon; ?>" required>
 
-							<label style="color:#FE804D;" class="form-label" for="kode_perwilayah">Status</label>
-							<input type="text" class="form-control mb-2" id="status" name="status" placeholder="Status" value="<?= $row->status; ?>" required>
+								<label style="color:#FE804D;" class="form-label" for="kode_wilayah">Kode Wilayah</label>
+								<input type="number" class="form-control mb-2" id="kode_wilayah" name="kode_wilayah" placeholder="Kode Wilayah" value="<?= $row->kode_wilayah; ?>" required>
+
+							</div>
 						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-						<button type="submit" class="btn btn-primary">Ubah</button>
-					</div>
-				</form>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+							<button type="submit" class="btn btn-primary">Ubah</button>
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
-	</div>
-<?php endforeach; ?>
-
-<!-- Hapus Data Petugas -->
-<?php foreach ($petugas as $row) : ?>
-	<div class="modal fade" id="deletePetugas<?= $row->nik; ?>" tabindex="-1" aria-labelledby="newMenuModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="newMenuModalLabel">Hapus Data <?= $row->nama; ?></h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-					<a class="btn btn-primary" href="<?= base_url('admin/deleteDataPetugas'); ?>/<?= $row->nik; ?>">Delete</a>
-				</div>
-
-			</div>
-		</div>
-	</div>
-<?php endforeach; ?>
+	<?php endforeach; ?>

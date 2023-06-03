@@ -6,16 +6,15 @@ class Admin extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->library('form_validation');
 		$this->load->library('pagination');
 		$this->load->model('ModelAdmin');
 	}
 
 	public function index()
 	{
-		if ($this->session->userdata('username')) {
+		if ($this->session->userdata('email')) {
 
-			$data['admin'] = $this->db->get_where('admin', ['username' => $this->session->userdata('username')])->row_array();
+			$data['users'] = $this->ModelAdmin->cekData(['email' => $this->session->userdata('email')])->row_array();
 		}
 		$title['title'] = "Dashboard Admin";
 
@@ -39,8 +38,17 @@ class Admin extends CI_Controller
 		}
 
 		// config
+		$config['base_url'] = 'http://localhost/inbako/admin/dataWarga';
+
 		$this->db->like('nama', $data['keyword']);
 		$this->db->or_like('nik', $data['keyword']);
+		$this->db->or_like('ttl', $data['keyword']);
+		$this->db->or_like('email', $data['keyword']);
+		$this->db->or_like('kota', $data['keyword']);
+		$this->db->or_like('kecamatan', $data['keyword']);
+		$this->db->or_like('kelurahan', $data['keyword']);
+		$this->db->or_like('kode_wilayah', $data['keyword']);
+		$this->db->or_like('kode_perwilayah', $data['keyword']);
 
 		$this->db->from('warga');
 		$config['total_rows'] = $this->db->count_all_results();
@@ -157,39 +165,40 @@ class Admin extends CI_Controller
 
 	public function dataPetugas()
 	{
-		$queryAllPetugas = $this->ModelAdmin->getDataPetugas();
-		$data = array('petugas' => $queryAllPetugas);
+
 		$title['title'] = "Data Petugas";
 
-		$config['base_url'] = 'http://localhost/inbako/admin/dataPetugas';
-
-		// ambil data keyword
-		if ($this->input->post('submit')) {
-			$data['keyword'] = $this->input->post('keyword');
+		//ambil data keyword
+		if ($this->input->get('submit')) {
+			$data['keyword'] = trim($this->input->get('keyword'));
 			$this->session->set_userdata('keyword', $data['keyword']);
 		} else {
-			$data['keyword'] = $this->session->userdata('keyword', $data);
+			$data['keyword'] = $this->session->userdata('keyword');
 		}
 
-		//pagination
-		//config
-		$this->db->like('nik', $data['keyword']);
-		$this->db->or_like('nama', $data['keyword']);
-		$this->db->or_like('kota', $data['keyword']);
+		// config
+		$config['base_url'] = 'http://localhost/inbako/admin/dataPetugas';
+
+		$this->db->like('nama', $data['keyword']);
+		$this->db->or_like('nik', $data['keyword']);
+		$this->db->or_like('tgl_lahir', $data['keyword']);
 		$this->db->or_like('email', $data['keyword']);
+		$this->db->or_like('kota', $data['keyword']);
 		$this->db->or_like('kecamatan', $data['keyword']);
 		$this->db->or_like('kelurahan', $data['keyword']);
 		$this->db->or_like('kode_wilayah', $data['keyword']);
-		$this->db->or_like('status', $data['keyword']);
+
 		$this->db->from('petugas');
 		$config['total_rows'] = $this->db->count_all_results();
 		$data['total_rows'] = $config['total_rows'];
-		$config['per_page'] = 7;
+		$config['per_page'] = 2;
 
-		//initialize
+
+		// initialize pagination
 		$this->pagination->initialize($config);
 
 		$data['start'] = $this->uri->segment(3);
+		$data['pagination'] = $this->pagination->create_links();
 		$data['petugas'] = $this->ModelAdmin->getPetugas($config['per_page'], $data['start'], $data['keyword']);
 
 		$this->load->view('templates/header', $title);
@@ -200,78 +209,105 @@ class Admin extends CI_Controller
 
 	public function tambahDataPetugas()
 	{
-		$queryAllPetugas = $this->ModelAdmin->getDataPetugas();
+		$this->load->library('form_validation');
+
+		$queryAllPetugas = $this->ModelAdmin->getAllPetugas();
 		$data = array('petugas' => $queryAllPetugas);
 		$title['title'] = 'Tambah Data Petugas';
 
-		$nik = $this->input->post('nik');
-		$nama = $this->input->post('nama');
-		$kota = $this->input->post('kota');
-		$email = $this->input->post('email');
-		$kecamatan = $this->input->post('kecamatan');
-		$kelurahan = $this->input->post('kelurahan');
-		$kode_wilayah = $this->input->post('kode_wilayah');
-		$status = $this->input->post('status');
 
-		$data = array(
-			'nik' => $nik,
-			'nama' => $nama,
-			'kota' => $kota,
-			'email' => $email,
-			'kecamatan' => $kecamatan,
-			'kelurahan' => $kelurahan,
-			'kode_wilayah' => $kode_wilayah,
-			'status' => $status,
+		$this->form_validation->set_rules('nik', 'NIK', 'required|trim|is_unique[petugas.nik]', [
+			'is_unique' => 'NIK Sudah Terdaftar!'
+		]);
+		$this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[petugas.email]', [
+			'is_unique' => 'Email Sudah Terdaftar!'
+		]);
+		$this->form_validation->set_rules('no_telepon', 'No Telepon', 'required|trim|is_unique[petugas.no_telepon]', [
+			'is_unique' => 'No Telepon Sudah Terdaftar!'
+		]);
 
-		);
+		if ($this->form_validation->run() == FALSE) {
+			$errorMessage = validation_errors();
+			echo json_encode(['status' => 'error', 'message' => $errorMessage]);
+		} else {
 
-		$this->ModelAdmin->tambahDataPetugas($data);
+			$nik = $this->input->post('nik');
+			$nama = $this->input->post('nama');
+			$email = $this->input->post('email');
+			$tgl_lahir = $this->input->post('tgl_lahir');
+			$no_telepon = $this->input->post('no_telepon');
+			$kota = $this->input->post('kota');
+			$kecamatan = $this->input->post('kecamatan');
+			$kelurahan = $this->input->post('kelurahan');
+			$kode_wilayah = $this->input->post('kode_wilayah');
 
-		$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data telah berhasil ditambahkan!</div>');
+			$data = array(
+				'nik' => $nik,
+				'nama' => $nama,
+				'email' => $email,
+				'tgl_lahir' => $tgl_lahir,
+				'no_telepon' => $no_telepon,
+				'kota' => $kota,
+				'kecamatan' => $kecamatan,
+				'kelurahan' => $kelurahan,
+				'kode_wilayah' => $kode_wilayah
 
-		redirect('admin/dataPetugas');
+			);
+
+			$this->ModelAdmin->tambahDataPetugas($data);
+
+			$this->session->set_flashdata('success_message', 'Data berhasil ditambah');
+
+			redirect('admin/dataPetugas');
+		}
 	}
 
 	public function editDataPetugas()
 	{
+		$id = $this->input->post('id');
 		$nik = $this->input->post('nik');
 		$nama = $this->input->post('nama');
-		$kota = $this->input->post('kota');
 		$email = $this->input->post('email');
+		$tgl_lahir = $this->input->post('tgl_lahir');
+		$no_telepon = $this->input->post('no_telepon');
+		$kota = $this->input->post('kota');
 		$kecamatan = $this->input->post('kecamatan');
 		$kelurahan = $this->input->post('kelurahan');
 		$kode_wilayah = $this->input->post('kode_wilayah');
-		$status = $this->input->post('status');
 
 		$data = [
+			'id' => $id,
 			'nik' => $nik,
 			'nama' => $nama,
-			'kota' => $kota,
 			'email' => $email,
+			'tgl_lahir' => $tgl_lahir,
+			'no_telepon' => $no_telepon,
+			'kota' => $kota,
 			'kecamatan' => $kecamatan,
 			'kelurahan' => $kelurahan,
 			'kode_wilayah' => $kode_wilayah,
-			'status' => $status,
 
 		];
 
 		$where = [
-			'nik' => $nik
+			'id' => $id
 		];
 
 		$this->ModelAdmin->editDataPetugas($where, $data, 'petugas');
 
-		$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data telah berhasil diubah!</div>');
+		$this->session->set_flashdata('success_message', 'Data berhasil diubah');
 
 		redirect('admin/dataPetugas');
 	}
 
-	public function deleteDataPetugas($nik)
+	public function deleteDataPetugas($id)
 	{
-		$where = array('nik' => $nik);
+		$where = array('id' => $id);
 		$this->ModelAdmin->deleteDataPetugas($where, 'petugas');
-		redirect('admin/dataPetugas');
+		$this->session->set_flashdata('success_message', 'Data berhasil dihapus');
+		redirect('admin/dataPetugas?keyword=&submit=Submit');
 	}
+
 
 
 	public function dataJadwal()
