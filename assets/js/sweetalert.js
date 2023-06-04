@@ -80,7 +80,10 @@ $(document).ready(function () {
 					Swal.fire({
 						title: "Success",
 						text: "Data berhasil ditambahkan",
-						icon: "sukses",
+						icon: "success",
+					}).then(function () {
+						// Redirect ke halaman dataPetugas setelah pengguna menutup SweetAlert
+						window.location.href = "dataPetugas";
 					});
 				}
 			},

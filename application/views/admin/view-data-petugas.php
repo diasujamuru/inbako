@@ -26,8 +26,15 @@
 
 			<?php if ($this->session->flashdata('success_message')) : ?>
 				<script>
-					// Tampilkan SweetAlert menggunakan flash data
-					Swal.fire("Sukses!", "<?= $this->session->flashdata('success_message'); ?>", "success");
+					// Tampilkan SweetAlert dengan pesan sukses
+					Swal.fire({
+						title: "Success",
+						text: "<?= $this->session->flashdata('success_message'); ?>",
+						icon: "success"
+					}).then(function() {
+						// Redirect ke halaman dataPetugas setelah pengguna menutup SweetAlert
+						window.location.href = "<?= base_url('admin/dataPetugas'); ?>";
+					});
 				</script>
 			<?php endif; ?>
 
@@ -49,6 +56,7 @@
 								<th class="text-secondary text-center text-xs font-weight-bolder align-middle">Kota</th>
 								<th class="text-secondary text-center text-xs font-weight-bolder align-middle">Kecamatan</th>
 								<th class="text-secondary text-center text-xs font-weight-bolder align-middle">Kelurahan</th>
+								<th class="text-secondary text-center text-xs font-weight-bolder align-middle">kode <br> Wilayah</th>
 								<th class="text-secondary text-center text-xs font-weight-bolder align-middle">No <br> Telepon</th>
 								<th class="text-secondary text-center text-xs font-weight-bolder align-middle">Aksi</th>
 							</tr>
@@ -93,6 +101,9 @@
 										</td>
 										<td class="align-middle text-center text-xs ">
 											<span class="text-secondary"><?= $row->kelurahan; ?></span>
+										</td>
+										<td class="align-middle text-center text-xs ">
+											<span class="text-secondary"><?= $row->kode_wilayah; ?></span>
 										</td>
 										<td class="align-middle text-center text-xs ">
 											<span class="text-secondary"><?= $row->no_telepon; ?></span>
@@ -187,7 +198,7 @@
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
-					<form action="<?= base_url('admin/editDataPetugas'); ?>" method="post">
+					<form action="<?= base_url('admin/editDataPetugas'); ?>" id="formUbahData" method="post">
 						<div class="modal-body">
 							<div class="form-group">
 								<input type="hidden" class="form-control mb-2" id="id" name="id" value="<?= $row->id; ?>">
@@ -197,6 +208,9 @@
 
 								<label style="color:#FE804D;" class="form-label" for="nama">Nama</label>
 								<input type="text" class="form-control mb-2" id="nama" name="nama" placeholder="Nama" value="<?= $row->nama; ?>" required>
+
+								<label style="color:#FE804D;" class="form-label" for="email">Email</label>
+								<input type="text" class="form-control mb-2" id="email" name="email" placeholder="email" value="<?= $row->email; ?>" required>
 
 								<label style="color:#FE804D;" class="form-label" for="tgl_lahir">Tanggal Lahir</label>
 								<input type="date" class="form-control mb-2" id="tgl_lahir" name="tgl_lahir" placeholder="tgl_lahir" value="<?= $row->tgl_lahir; ?>" required>

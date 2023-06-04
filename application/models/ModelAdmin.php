@@ -63,6 +63,28 @@ class ModelAdmin extends CI_Model
 		return $query->result();
 	}
 
+	public function checkExistingData($data)
+	{
+		$id = $data['id'];
+		$nik = $data['nik'];
+		$email = $data['email'];
+		$no_telepon = $data['no_telepon'];
+
+		// Mengecek apakah ada data dengan NIK, Email, atau No Telepon yang sama kecuali data dengan ID yang sedang diubah
+		$this->db->select('*');
+		$this->db->from('petugas');
+		$this->db->where('(nik = "' . $nik . '" OR email = "' . $email . '" OR no_telepon = "' . $no_telepon . '")');
+		$this->db->where('id !=', $id);
+		$query = $this->db->get();
+
+		if ($query->num_rows() > 0) {
+			return true; // Data sudah terdaftar
+		} else {
+			return false; // Data belum terdaftar
+		}
+	}
+
+
 	public function countAllPetugas()
 	{
 		$query = $this->db->get('petugas');
