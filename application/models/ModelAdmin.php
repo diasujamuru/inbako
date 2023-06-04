@@ -127,7 +127,7 @@ class ModelAdmin extends CI_Model
 		$this->db->delete($table);
 	}
 
-	public function getDataJadwal()
+	public function getAllJadwal()
 	{
 		$query = $this->db->get('jadwal');
 		return $query->result();
@@ -163,5 +163,11 @@ class ModelAdmin extends CI_Model
 	{
 		$this->db->where($where);
 		$this->db->delete($table);
+	}
+
+	public function countAllJadwal()
+	{
+		$query = $this->db->get('jadwal');
+		return $query->num_rows();
 	}
 }

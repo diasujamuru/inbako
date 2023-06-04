@@ -4,7 +4,7 @@
 		<ul class="navbar-nav sidebar sidebar-dark accordion" style="background-color: #FE804D;" id="accordionSidebar">
 
 			<!-- Sidebar - Brand -->
-			<a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url('dashboard'); ?>">
+			<a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url('admin'); ?>">
 				<div class="sidebar-brand-icon">
 					<i class="fas fa-store"></i>
 				</div>
@@ -15,7 +15,7 @@
 			<hr class="sidebar-divider my-0">
 
 			<li class="nav-item">
-				<a class="nav-link" href="<?= base_url('dashboard'); ?>">
+				<a class="nav-link" href="<?= base_url('admin'); ?>">
 					<i class="fas fa-fw fa-tachometer-alt"></i>
 					<span>Dashboard</span></a>
 			</li>

@@ -312,36 +312,36 @@ class Admin extends CI_Controller
 
 	public function dataJadwal()
 	{
-		$queryAllJadwal = $this->ModelAdmin->getDataJadwal();
-		$data = array('jadwal' => $queryAllJadwal);
-		$title['title'] = "Data jadwal";
-
-		$config['base_url'] = 'http://localhost/inbako/admin/dataJadwal';
+		$title['title'] = "Data Jadwal";
 
 		//ambil data keyword
-		if ($this->input->post('submit')) {
-			$data['keyword'] = $this->input->post('keyword');
+		if ($this->input->get('submit')) {
+			$data['keyword'] = trim($this->input->get('keyword'));
 			$this->session->set_userdata('keyword', $data['keyword']);
 		} else {
-			$data['keyword'] = $this->session->userdata('keyword', $data);
+			$data['keyword'] = $this->session->userdata('keyword');
 		}
 
-		//pagination
-		//config
+		// config
+		$config['base_url'] = 'http://localhost/inbako/admin/dataJadwal';
+
 		$this->db->like('kode_wilayah', $data['keyword']);
 		$this->db->or_like('tanggal', $data['keyword']);
 		$this->db->or_like('mulai', $data['keyword']);
 		$this->db->or_like('selesai', $data['keyword']);
 		$this->db->or_like('kode_perwilayah', $data['keyword']);
+
 		$this->db->from('jadwal');
 		$config['total_rows'] = $this->db->count_all_results();
 		$data['total_rows'] = $config['total_rows'];
-		$config['per_page'] = 7;
+		$config['per_page'] = 4;
 
-		//initialize
+
+		// initialize pagination
 		$this->pagination->initialize($config);
 
 		$data['start'] = $this->uri->segment(3);
+		$data['pagination'] = $this->pagination->create_links();
 		$data['jadwal'] = $this->ModelAdmin->getJadwal($config['per_page'], $data['start'], $data['keyword']);
 
 		$this->load->view('templates/header', $title);
@@ -352,30 +352,36 @@ class Admin extends CI_Controller
 
 	public function tambahDataJadwal()
 	{
+
 		$queryAllJadwal = $this->ModelAdmin->getDataJadwal();
 		$data = array('jadwal' => $queryAllJadwal);
 		$title['title'] = 'Tambah Data adwal';
 
-		$kode_wilayah = $this->input->post('kode_wilayah');
-		$tanggal = $this->input->post('tanggal');
-		$mulai = $this->input->post('mulai');
-		$selesai = $this->input->post('selesai');
-		$kode_perwilayah = $this->input->post('kode_perwilayah');
+		if ($this->form_validation->run() == FALSE) {
+			$errorMessage = validation_errors();
+			echo json_encode(['status' => 'error', 'message' => $errorMessage]);
+		} else {
+			$kode_wilayah = $this->input->post('kode_wilayah');
+			$tanggal = $this->input->post('tanggal');
+			$mulai = $this->input->post('mulai');
+			$selesai = $this->input->post('selesai');
+			$kode_perwilayah = $this->input->post('kode_perwilayah');
 
-		$data = array(
-			'kode_wilayah' => $kode_wilayah,
-			'tanggal' => $tanggal,
-			'mulai' => $mulai,
-			'selesai' => $selesai,
-			'kode_perwilayah' => $kode_perwilayah,
+			$data = array(
+				'kode_wilayah' => $kode_wilayah,
+				'tanggal' => $tanggal,
+				'mulai' => $mulai,
+				'selesai' => $selesai,
+				'kode_perwilayah' => $kode_perwilayah,
 
-		);
+			);
 
-		$this->ModelAdmin->tambahDataJadwal($data);
+			$this->ModelAdmin->tambahDataJadwal($data);
 
-		$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data telah berhasil ditambahkan!</div>');
+			$this->session->set_flashdata('success_message', 'Data berhasil ditambah');
 
-		redirect('admin/dataJadwal');
+			redirect('admin/dataJadwal');
+		}
 	}
 
 	public function editDataJadwal()
@@ -403,7 +409,7 @@ class Admin extends CI_Controller
 
 		$this->ModelAdmin->editDataJadwal($where, $data, 'jadwal');
 
-		$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data telah berhasil diubah!</div>');
+		$this->session->set_flashdata('success_message', 'Data berhasil diubah');
 
 		redirect('admin/dataJadwal');
 	}
@@ -412,6 +418,7 @@ class Admin extends CI_Controller
 	{
 		$where = array('id' => $id);
 		$this->ModelAdmin->deleteDataJadwal($where, 'jadwal');
-		redirect('admin/dataJadwal');
+		$this->session->set_flashdata('success_message', 'Data berhasil dihapus');
+		redirect('admin/dataJadwal?keyword=&submit=Submit');
 	}
 }
